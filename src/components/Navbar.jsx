@@ -5,7 +5,7 @@ function Navbar() {
   return (
     <nav style={styles.navbar}>
       <div style={styles.logoContainer}>
-        <img src="dairy-products.png" alt="Dairy Cloud Logo" style={styles.logoImage} />
+        <img src="dairylogo.png" alt="Dairy Cloud Logo" style={styles.logoImage} />
         <h1 style={styles.logo}>Dairy Clouds</h1>
       </div>
       <div style={styles.links}>
@@ -47,7 +47,7 @@ const styles = {
   logo: {
     fontSize: "24px",
     fontWeight: "bold",
-    color: "#FFFFFF",
+    color: "#000",
   },
   links: {
     display: "flex",

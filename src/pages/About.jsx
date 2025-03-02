@@ -4,15 +4,7 @@ function About() {
   return (
     <div style={styles.container}>
       {/* Navigation Bar */}
-      <nav style={styles.navbar}>
-        <h1 style={styles.logo}>Dairy Cloud</h1>
-        <ul style={styles.navLinks}>
-          <li><a href="#" style={styles.navLink}>Home</a></li>
-          <li><a href="#" style={styles.navLink}>About</a></li>
-          <li><a href="#" style={styles.navLink}>Services</a></li>
-          <li><a href="#" style={styles.navLink}>Contact</a></li>
-        </ul>
-      </nav>
+      
 
       {/* Main Content */}
       <div style={styles.content}>
