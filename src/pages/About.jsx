@@ -3,6 +3,17 @@ import React from "react";
 function About() {
   return (
     <div style={styles.container}>
+      {/* Navigation Bar */}
+      <nav style={styles.navbar}>
+        <h1 style={styles.logo}>Dairy Cloud</h1>
+        <ul style={styles.navLinks}>
+          <li><a href="#" style={styles.navLink}>Home</a></li>
+          <li><a href="#" style={styles.navLink}>About</a></li>
+          <li><a href="#" style={styles.navLink}>Services</a></li>
+          <li><a href="#" style={styles.navLink}>Contact</a></li>
+        </ul>
+      </nav>
+
       {/* Main Content */}
       <div style={styles.content}>
         <h2 style={styles.heading}>About Dairy Cloud</h2>
@@ -25,8 +36,8 @@ function About() {
         <h2 style={styles.heading}>Meet the Team</h2>
         <div style={styles.team}>
           {[
-            { name: "John Doe", role: "Full Stack Developer", github: "https://github.com/johndoe", linkedin: "https://linkedin.com/in/johndoe", img: "https://source.unsplash.com/100x100/?man,developer" },
-            { name: "Jane Smith", role: "UI/UX Designer", github: "https://github.com/janesmith", linkedin: "https://linkedin.com/in/janesmith", img: "https://source.unsplash.com/100x100/?woman,designer" }
+            { name: "Yash Yeole", role: "Full Stack Developer", github: "https://github.com/yashyeole09", linkedin: "https://www.linkedin.com/in/yashyeole09/", img: "https://github.com/yashyeole09.png" },
+            { name: "Pratik Shedge", role: "UI/UX Designer", github: "https://github.com/Pratik-shedge07", linkedin: "https://www.linkedin.com/in/pratik-shedge07/  ", img: "https://github.com/Pratik-shedge07.png" }
           ].map((member, index) => (
             <div key={index} style={styles.memberCard} className="hover-scale">
               <img src={member.img} alt={member.name} style={styles.profilePic} className="hover-rotate" />
@@ -41,7 +52,7 @@ function About() {
         </div>
 
         {/* Image Section */}
-        <img src="https://source.unsplash.com/1600x500/?dairy,farm" alt="Dairy Farm" style={styles.image} className="hover-brightness" />
+        <img src="" alt="Dairy Farm" style={styles.image} className="hover-brightness" />
       </div>
 
       {/* Hover Effects */}
