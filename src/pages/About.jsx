@@ -43,8 +43,6 @@ function About() {
           ))}
         </div>
 
-        {/* Image Section */}
-        <img src="" alt="Dairy Farm" style={styles.image} className="hover-brightness" />
       </div>
 
       {/* Hover Effects */}
