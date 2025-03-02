@@ -5,17 +5,16 @@ function Navbar() {
   return (
     <nav style={styles.navbar}>
       <div style={styles.logoContainer}>
-        <h1 style={styles.logo}>Dairy Clouds </h1> 
-        <img src="/dairy-products.png" alt="Dairy Cloud Logo" style={styles.logoImage} />
+        <img src="dairy-products.png" alt="Dairy Cloud Logo" style={styles.logoImage} />
+        <h1 style={styles.logo}>Dairy Clouds</h1>
       </div>
       <div style={styles.links}>
         <Link to="/" style={styles.link}>Home</Link>
-        <Link to="products" style={styles.link}>Products</Link>
+        <Link to="/products" style={styles.link}>Products</Link>
         <Link to="/dashboard" style={styles.link}>Dashboard</Link>
-        <Link to="/about" style={styles.link}>About</Link>  
-        <Link to="/contact" style={styles.link}>Contact us</Link>
-        <Link to="/Login" style={styles.link}>Login</Link>
-
+        <Link to="/about" style={styles.link}>About</Link>
+        <Link to="/contact" style={styles.link}>Contact Us</Link>
+        <Link to="/login" style={styles.link}>Login</Link>
       </div>
     </nav>
   );
@@ -23,14 +22,14 @@ function Navbar() {
 
 const styles = {
   navbar: {
-    width: "100%", // Full width
-    height: "55px", // Slightly taller for better readability
+    width: "96%",
+    height: "70px",
     display: "flex",
-    justifyContent: "space-between", // Properly spaced elements
+    justifyContent: "space-between",
     alignItems: "center",
-    padding: "0 60px", // Adjusted spacing
-    background: "linear-gradient(to right, #C19A6B, #8B5E3C)", // Gradient Beige
-    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)", // Soft shadow
+    padding: "0 60px",
+    background: "#00796B", // Teal Green
+    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
     position: "fixed",
     top: 0,
     left: 0,
@@ -41,35 +40,41 @@ const styles = {
     alignItems: "center",
   },
   logoImage: {
-    width: "50px", // Adjust size of the logo
+    width: "50px",
     height: "50px",
-    marginRight: "20px", 
-    marginLeft: "20px", // Added spacing for better alignment
+    marginRight: "12px",
   },
   logo: {
-    fontSize: "30px", // Increased font size for better visibility
+    fontSize: "24px",
     fontWeight: "bold",
-    color: "#FFF5E1", // Light cream text
+    color: "#FFFFFF",
   },
   links: {
     display: "flex",
-    gap: "40px", // Increased spacing for even distribution
-    justifyContent: "center",
-    flexGrow: 1, // Ensures links take equal space
+    gap: "30px",
   },
   link: {
     textDecoration: "none",
-    color: "#3E2723", // Dark Brown
-    fontSize: "20px", // Increased font size
+    color: "#FFFFFF",
+    fontSize: "18px",
     fontWeight: "bold",
-    padding: "6px 12px",
+    padding: "8px 12px",
     borderRadius: "6px",
-    transition: "all 0.3s ease-in-out",
+    transition: "background 0.3s ease-in-out",
   },
   linkHover: {
-    background: "#A67B5B", 
-    color: "#fff",
-  }
+    background: "#B2DFDB", // Soft Aqua
+    color: "#00796B",
+  },
+  button: {
+    textDecoration: "none",
+    color: "#FFFFFF",
+    background: "#009688", // Vibrant Teal
+    padding: "8px 15px",
+    borderRadius: "6px",
+    fontWeight: "bold",
+    transition: "0.3s",
+  },
 };
 
 export default Navbar;
