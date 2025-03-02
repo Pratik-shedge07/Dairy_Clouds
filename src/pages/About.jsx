@@ -3,17 +3,6 @@ import React from "react";
 function About() {
   return (
     <div style={styles.container}>
-      {/* Navigation Bar */}
-      <nav style={styles.navbar}>
-        <h1 style={styles.logo}>Dairy Cloud</h1>
-        <ul style={styles.navLinks}>
-          <li><a href="#" style={styles.navLink}>Home</a></li>
-          <li><a href="#" style={styles.navLink}>About</a></li>
-          <li><a href="#" style={styles.navLink}>Services</a></li>
-          <li><a href="#" style={styles.navLink}>Contact</a></li>
-        </ul>
-      </nav>
-
       {/* Main Content */}
       <div style={styles.content}>
         <h2 style={styles.heading}>About Dairy Cloud</h2>
@@ -55,14 +44,13 @@ function About() {
         <img src="https://source.unsplash.com/1600x500/?dairy,farm" alt="Dairy Farm" style={styles.image} className="hover-brightness" />
       </div>
 
-      {/* Hover Effects using CSS in JS */}
+      {/* Hover Effects */}
       <style>
         {`
           .hover-scale:hover { transform: scale(1.05); transition: transform 0.3s ease-in-out; }
           .hover-rotate:hover { transform: rotate(5deg); transition: transform 0.3s ease-in-out; }
           .hover-underline:hover { text-decoration: underline; transition: text-decoration 0.3s ease-in-out; }
           .hover-brightness:hover { filter: brightness(1.2); transition: filter 0.3s ease-in-out; }
-          .hover-opacity:hover { opacity: 0.8; transition: opacity 0.3s ease-in-out; }
         `}
       </style>
     </div>
@@ -78,39 +66,8 @@ const styles = {
     fontFamily: "'Poppins', sans-serif",
     overflowY: "auto",
   },
-  navbar: {
-    position: "fixed",
-    top: "0",
-    width: "100%",
-    backgroundColor: "#a67b5b", // Brown Beige Navigation Bar
-    padding: "15px 20px",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    borderRadius: "0 0 10px 10px",
-    boxShadow: "0 3px 10px rgba(0, 0, 0, 0.1)",
-    zIndex: "1000",
-  },
-  logo: {
-    fontSize: "1.8em",
-    fontWeight: "bold",
-    color: "#000000",
-  },
-  navLinks: {
-    listStyle: "none",
-    display: "flex",
-    gap: "20px",
-    margin: "0",
-  },
-  navLink: {
-    textDecoration: "none",
-    color: "#000000",
-    fontSize: "1.1em",
-    fontWeight: "500",
-    transition: "color 0.3s",
-  },
   content: {
-    paddingTop: "80px",
+    paddingTop: "40px",
     textAlign: "center",
     maxWidth: "1200px",
     margin: "auto",
