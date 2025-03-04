@@ -169,5 +169,4 @@ const styles = {
     marginBottom: "10px",
   },
 };
-
 export default Home;
