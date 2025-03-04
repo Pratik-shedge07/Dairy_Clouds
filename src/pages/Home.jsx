@@ -142,7 +142,7 @@ const styles = {
     position: "relative",
   },
   heroOverlay: {
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // Dark overlay for better contrast
     color: "#fff",
     textAlign: "center",
     padding: "20px",
@@ -158,14 +158,32 @@ const styles = {
     fontSize: "48px",
     fontWeight: "bold",
     marginBottom: "20px",
+    color: "#fff", // White text for contrast
+    "@media (max-width: 768px)": {
+      fontSize: "36px",
+    },
+    "@media (max-width: 480px)": {
+      fontSize: "28px",
+    },
   },
   heroSubtitle: {
     fontSize: "24px",
     marginBottom: "40px",
+    color: "#f0f0f0", // Light gray for subtlety
+    "@media (max-width: 768px)": {
+      fontSize: "18px",
+    },
+    "@media (max-width: 480px)": {
+      fontSize: "16px",
+    },
   },
   heroButtons: {
     display: "flex",
     gap: "20px",
+    "@media (max-width: 480px)": {
+      flexDirection: "column",
+      gap: "10px",
+    },
   },
   heroButtonPrimary: {
     padding: "15px 30px",
@@ -173,10 +191,14 @@ const styles = {
     fontWeight: "bold",
     border: "none",
     borderRadius: "5px",
-    backgroundColor: "#FF5722",
+    backgroundColor: "#FF5722", // Primary color
     color: "white",
     cursor: "pointer",
     transition: "0.3s ease",
+    "@media (max-width: 480px)": {
+      padding: "12px 24px",
+      fontSize: "16px",
+    },
   },
   heroButtonSecondary: {
     padding: "15px 30px",
@@ -188,29 +210,57 @@ const styles = {
     color: "#FF5722",
     cursor: "pointer",
     transition: "0.3s ease",
+    "@media (max-width: 480px)": {
+      padding: "12px 24px",
+      fontSize: "16px",
+    },
   },
   aboutSection: {
     padding: "80px 20px",
-    backgroundColor: "#f9f9f9",
+    backgroundColor: "#f9f9f9", // Light gray background
     textAlign: "center",
+    "@media (max-width: 768px)": {
+      padding: "60px 20px",
+    },
+    "@media (max-width: 480px)": {
+      padding: "40px 20px",
+    },
   },
   sectionTitle: {
     fontSize: "36px",
     fontWeight: "bold",
     marginBottom: "20px",
-    color: "#333",
+    color: "#333", // Dark gray for headings
+    "@media (max-width: 768px)": {
+      fontSize: "28px",
+    },
+    "@media (max-width: 480px)": {
+      fontSize: "24px",
+    },
   },
   sectionDescription: {
     fontSize: "18px",
     maxWidth: "800px",
     margin: "0 auto",
     lineHeight: "1.6",
-    color: "#666",
+    color: "#555", // Medium gray for text
+    "@media (max-width: 768px)": {
+      fontSize: "16px",
+    },
+    "@media (max-width: 480px)": {
+      fontSize: "14px",
+    },
   },
   featuresSection: {
     padding: "80px 20px",
-    backgroundColor: "#fff",
+    backgroundColor: "#fff", // White background
     textAlign: "center",
+    "@media (max-width: 768px)": {
+      padding: "60px 20px",
+    },
+    "@media (max-width: 480px)": {
+      padding: "40px 20px",
+    },
   },
   featuresGrid: {
     display: "grid",
@@ -219,29 +269,46 @@ const styles = {
     maxWidth: "1200px",
     margin: "0 auto",
     padding: "20px",
+    "@media (max-width: 480px)": {
+      gridTemplateColumns: "1fr",
+      gap: "20px",
+    },
   },
   featureCard: {
-    backgroundColor: "#f9f9f9",
+    backgroundColor: "#f9f9f9", // Light gray background for cards
     padding: "30px",
     borderRadius: "10px",
     textAlign: "center",
     boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
     transition: "transform 0.3s ease, box-shadow 0.3s ease",
+    "@media (max-width: 480px)": {
+      padding: "20px",
+    },
   },
   featureIcon: {
     fontSize: "48px",
     marginBottom: "20px",
+    color: "#FF5722", // Primary color for icons
+    "@media (max-width: 480px)": {
+      fontSize: "36px",
+    },
   },
   featureTitle: {
     fontSize: "24px",
     fontWeight: "bold",
     marginBottom: "15px",
-    color: "#333",
+    color: "#333", // Dark gray for titles
+    "@media (max-width: 480px)": {
+      fontSize: "20px",
+    },
   },
   featureDescription: {
     fontSize: "16px",
-    color: "#666",
+    color: "#666", // Medium gray for descriptions
     lineHeight: "1.6",
+    "@media (max-width: 480px)": {
+      fontSize: "14px",
+    },
   },
 };
 
