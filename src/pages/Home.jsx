@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion"; // For animations
 
 const images = [
   "https://c4.wallpaperflare.com/wallpaper/365/683/587/milk-cheese-sour-cream-dairy-products-wallpaper-preview.jpg",
@@ -23,66 +24,100 @@ function Home() {
   return (
     <div style={styles.homeContainer}>
       {/* Slideshow Section */}
-      <div
+      <motion.div
         style={{
           ...styles.slideshow,
           backgroundImage: `url(${images[currentIndex]})`
         }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
       >
         <div style={styles.overlay}>
-          <h1>Welcome to Dairy Cloud</h1>
-          <p>Manage your dairy business efficiently.</p>
+          <motion.h1
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+          >
+            Welcome to Dairy Cloud
+          </motion.h1>
+          <motion.p
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.8, duration: 0.8 }}
+          >
+            Manage your dairy business efficiently.
+          </motion.p>
           <div style={styles.buttons}>
-            <button
+            <motion.button
               onClick={() => navigate("/login")}
               style={styles.btn}
-              onMouseEnter={(e) => (e.target.style.backgroundColor = "#E64A19")}
-              onMouseLeave={(e) => (e.target.style.backgroundColor = "#FF5722")}
+              whileHover={{ scale: 1.1, backgroundColor: "#E64A19" }}
+              whileTap={{ scale: 0.9 }}
             >
               Get Started
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               onClick={() => navigate("/products")}
               style={styles.btn}
-              onMouseEnter={(e) => (e.target.style.backgroundColor = "#E64A19")}
-              onMouseLeave={(e) => (e.target.style.backgroundColor = "#FF5722")}
+              whileHover={{ scale: 1.1, backgroundColor: "#E64A19" }}
+              whileTap={{ scale: 0.9 }}
             >
               Explore
-            </button>
+            </motion.button>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Info Section */}
       <div style={styles.infoSection}>
-        <h2 style={styles.sectionTitle}>About Dairy Cloud</h2>
-        <p style={styles.description}>
-          Dairy Cloud is an all-in-one solution to manage your dairy business. 
-          From tracking milk production to managing sales, we offer an intuitive platform to streamline operations.
-        </p>
+        <motion.h2
+          style={styles.sectionTitle}
+          initial={{ y: -20, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8 }}
+        >
+          About Dairy Cloud
+        </motion.h2>
+        <motion.p
+          style={styles.description}
+          initial={{ y: 20, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+        >
+          Dairy Cloud is an all-in-one solution to manage your dairy business. From
+          tracking milk production to managing sales, we offer an intuitive
+          platform to streamline operations.
+        </motion.p>
 
-        <h2 style={styles.sectionTitle}>Features</h2>
+        <motion.h2
+          style={styles.sectionTitle}
+          initial={{ y: -20, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8 }}
+        >
+          Features
+        </motion.h2>
         <div style={styles.featureContainer}>
-          <div style={styles.featureCard}>
-            <span style={styles.icon}>📊</span>
-            <h3>Track Milk In & Out</h3>
-            <p>Monitor your daily milk production and distribution with ease.</p>
-          </div>
-          <div style={styles.featureCard}>
-            <span style={styles.icon}>💰</span>
-            <h3>Monitor Earnings</h3>
-            <p>Keep track of your revenue and expenses to maximize profits.</p>
-          </div>
-          <div style={styles.featureCard}>
-            <span style={styles.icon}>👥</span>
-            <h3>Manage Customers</h3>
-            <p>Store customer and supplier details for seamless communication.</p>
-          </div>
-          <div style={styles.featureCard}>
-            <span style={styles.icon}>📦</span>
-            <h3>Inventory Management</h3>
-            <p>Maintain stock levels and track dairy product availability.</p>
-          </div>
+          {[
+            { icon: "📊", title: "Track Milk In & Out", description: "Monitor your daily milk production and distribution with ease." },
+            { icon: "💰", title: "Monitor Earnings", description: "Keep track of your revenue and expenses to maximize profits." },
+            { icon: "👥", title: "Manage Customers", description: "Store customer and supplier details for seamless communication." },
+            { icon: "📦", title: "Inventory Management", description: "Maintain stock levels and track dairy product availability." },
+          ].map((feature, index) => (
+            <motion.div
+              key={index}
+              style={styles.featureCard}
+              initial={{ y: 50, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ delay: index * 0.2, duration: 0.8 }}
+              whileHover={{ scale: 1.05 }}
+            >
+              <span style={styles.icon}>{feature.icon}</span>
+              <h3>{feature.title}</h3>
+              <p>{feature.description}</p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </div>
@@ -106,8 +141,8 @@ const styles = {
     position: "relative",
   },
   overlay: {
-    backgroundColor: "rgba(198, 196, 196, 0.7)", // Light overlay for visibility
-    color: "#333",
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // Darker overlay for better contrast
+    color: "#fff",
     textAlign: "center",
     padding: "20px",
     borderRadius: "10px",
@@ -138,7 +173,7 @@ const styles = {
   },
   infoSection: {
     padding: "50px 20px",
-    backgroundColor: "#f4f4f4", // Light theme
+    backgroundColor: "#f9f9f9", // Light theme
     color: "#333",
     textAlign: "center",
   },
@@ -168,10 +203,6 @@ const styles = {
     textAlign: "center",
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
     transition: "transform 0.3s ease, box-shadow 0.3s ease",
-    ":hover": {
-      transform: "scale(1.05)",
-      boxShadow: "0px 6px 15px rgba(0, 0, 0, 0.2)",
-    },
   },
   icon: {
     fontSize: "40px",
