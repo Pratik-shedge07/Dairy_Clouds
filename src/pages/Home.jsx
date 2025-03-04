@@ -93,7 +93,7 @@ const styles = {
     position: "relative",
   },
   overlay: {
-    backgroundColor: "rgba(125, 124, 124, 0.7)", // Light overlay for visibility
+    backgroundColor: "rgba(134, 130, 130, 0.7)", // Light overlay for visibility
     color: "#333",
     textAlign: "center",
     padding: "20px",
