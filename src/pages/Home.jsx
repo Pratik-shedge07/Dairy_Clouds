@@ -30,8 +30,8 @@ function Home() {
         }}
       >
         <div style={styles.overlay}>
-          <h1 style={styles.mainTitle}>Welcome to Dairy Cloud</h1>
-          <p style={styles.subTitle}>Manage your dairy business efficiently.</p>
+          <h1>Welcome to Dairy Cloud</h1>
+          <p>Manage your dairy business efficiently.</p>
           <div style={styles.buttons}>
             <button onClick={() => navigate("/login")} style={styles.btn}>Get Started</button>
             <button onClick={() => navigate("/products")} style={styles.btn}>Explore</button>
@@ -70,43 +70,6 @@ function Home() {
             <p>Maintain stock levels and track dairy product availability.</p>
           </div>
         </div>
-
-        <h2 style={styles.sectionTitle}>Why Choose Us?</h2>
-        <p style={styles.description}>
-          Our platform offers seamless integration with your existing workflow. Here’s why Dairy Cloud is the best choice:
-        </p>
-        <ul style={styles.list}>
-          <li>✔️ User-friendly interface for smooth navigation</li>
-          <li>✔️ Secure and reliable data management</li>
-          <li>✔️ Automated reports for better decision-making</li>
-          <li>✔️ 24/7 customer support for all your needs</li>
-        </ul>
-      </div>
-
-      {/* Testimonials Section */}
-      <div style={styles.testimonialsSection}>
-        <h2 style={styles.sectionTitle}>What Our Customers Say</h2>
-        <div style={styles.testimonialsContainer}>
-          <div style={styles.testimonialCard}>
-            <p>"Dairy Cloud has transformed the way we manage our dairy business. Highly recommended!"</p>
-            <p style={styles.testimonialAuthor}>- John Doe, Dairy Farmer</p>
-          </div>
-          <div style={styles.testimonialCard}>
-            <p>"The inventory management feature is a game-changer. It saves us so much time!"</p>
-            <p style={styles.testimonialAuthor}>- Jane Smith, Dairy Owner</p>
-          </div>
-          <div style={styles.testimonialCard}>
-            <p>"Excellent customer support and easy-to-use interface. Love it!"</p>
-            <p style={styles.testimonialAuthor}>- Mike Johnson, Dairy Manager</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Call to Action Section */}
-      <div style={styles.ctaSection}>
-        <h2 style={styles.ctaTitle}>Ready to Transform Your Dairy Business?</h2>
-        <p style={styles.ctaDescription}>Join Dairy Cloud today and experience the future of dairy management.</p>
-        <button onClick={() => navigate("/login")} style={styles.ctaButton}>Sign Up Now</button>
       </div>
     </div>
   );
@@ -130,7 +93,7 @@ const styles = {
     position: "relative",
   },
   overlay: {
-    backgroundColor: "rgba(134, 130, 130, 0.7)",
+    backgroundColor: "rgba(198, 196, 196, 0.7)", // Light overlay for visibility
     color: "#333",
     textAlign: "center",
     padding: "20px",
@@ -144,17 +107,6 @@ const styles = {
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-  },
-  mainTitle: {
-    fontSize: "48px",
-    fontWeight: "bold",
-    color: "#fff",
-    marginBottom: "10px",
-  },
-  subTitle: {
-    fontSize: "24px",
-    color: "#fff",
-    marginBottom: "20px",
   },
   buttons: {
     marginTop: "20px",
@@ -171,9 +123,12 @@ const styles = {
     cursor: "pointer",
     transition: "0.3s ease",
   },
+  btnHover: {
+    backgroundColor: "#E64A19",
+  },
   infoSection: {
     padding: "50px 20px",
-    backgroundColor: "#f4f4f4",
+    backgroundColor: "#f4f4f4", // Light theme
     color: "#333",
     textAlign: "center",
   },
@@ -190,16 +145,9 @@ const styles = {
     margin: "0 auto",
     lineHeight: "1.5",
   },
-  list: {
-    textAlign: "left",
-    maxWidth: "700px",
-    margin: "20px auto",
-    fontSize: "18px",
-  },
   featureContainer: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "center",
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
     gap: "20px",
     marginTop: "30px",
   },
@@ -207,63 +155,18 @@ const styles = {
     backgroundColor: "#fff",
     padding: "20px",
     borderRadius: "10px",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-    width: "250px",
     textAlign: "center",
+    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+    transition: "transform 0.3s ease, box-shadow 0.3s ease",
+  },
+  featureCardHover: {
+    transform: "scale(1.05)",
+    boxShadow: "0px 6px 15px rgba(0, 0, 0, 0.2)",
   },
   icon: {
     fontSize: "40px",
+    display: "block",
     marginBottom: "10px",
-  },
-  testimonialsSection: {
-    padding: "50px 20px",
-    backgroundColor: "#fff",
-    textAlign: "center",
-  },
-  testimonialsContainer: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    gap: "20px",
-    marginTop: "30px",
-  },
-  testimonialCard: {
-    backgroundColor: "#f4f4f4",
-    padding: "20px",
-    borderRadius: "10px",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-    width: "300px",
-    textAlign: "center",
-  },
-  testimonialAuthor: {
-    fontSize: "16px",
-    fontWeight: "bold",
-    marginTop: "10px",
-  },
-  ctaSection: {
-    padding: "50px 20px",
-    backgroundColor: "#FF5722",
-    color: "#fff",
-    textAlign: "center",
-  },
-  ctaTitle: {
-    fontSize: "32px",
-    marginBottom: "10px",
-  },
-  ctaDescription: {
-    fontSize: "18px",
-    marginBottom: "20px",
-  },
-  ctaButton: {
-    padding: "12px 24px",
-    fontSize: "16px",
-    fontWeight: "bold",
-    border: "none",
-    borderRadius: "5px",
-    backgroundColor: "#fff",
-    color: "#FF5722",
-    cursor: "pointer",
-    transition: "0.3s ease",
   },
 };
 
