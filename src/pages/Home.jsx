@@ -23,18 +23,19 @@ function Home() {
 
   return (
     <div style={styles.homeContainer}>
-      {/* Slideshow Section */}
+      {/* Hero Section */}
       <motion.div
         style={{
-          ...styles.slideshow,
+          ...styles.heroSection,
           backgroundImage: `url(${images[currentIndex]})`
         }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        <div style={styles.overlay}>
+        <div style={styles.heroOverlay}>
           <motion.h1
+            style={styles.heroTitle}
             initial={{ y: -50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
@@ -42,35 +43,36 @@ function Home() {
             Welcome to Dairy Cloud
           </motion.h1>
           <motion.p
+            style={styles.heroSubtitle}
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.8 }}
           >
-            Manage your dairy business efficiently.
+            Your all-in-one solution for managing dairy operations efficiently.
           </motion.p>
-          <div style={styles.buttons}>
+          <div style={styles.heroButtons}>
             <motion.button
               onClick={() => navigate("/login")}
-              style={styles.btn}
-              whileHover={{ scale: 1.1, backgroundColor: "#E64A19" }}
-              whileTap={{ scale: 0.9 }}
+              style={styles.heroButtonPrimary}
+              whileHover={{ scale: 1.05, backgroundColor: "#E64A19" }}
+              whileTap={{ scale: 0.95 }}
             >
               Get Started
             </motion.button>
             <motion.button
               onClick={() => navigate("/products")}
-              style={styles.btn}
-              whileHover={{ scale: 1.1, backgroundColor: "#E64A19" }}
-              whileTap={{ scale: 0.9 }}
+              style={styles.heroButtonSecondary}
+              whileHover={{ scale: 1.05, backgroundColor: "#E64A19" }}
+              whileTap={{ scale: 0.95 }}
             >
-              Explore
+              Explore Products
             </motion.button>
           </div>
         </div>
       </motion.div>
 
-      {/* Info Section */}
-      <div style={styles.infoSection}>
+      {/* About Section */}
+      <div style={styles.aboutSection}>
         <motion.h2
           style={styles.sectionTitle}
           initial={{ y: -20, opacity: 0 }}
@@ -80,16 +82,17 @@ function Home() {
           About Dairy Cloud
         </motion.h2>
         <motion.p
-          style={styles.description}
+          style={styles.sectionDescription}
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.8 }}
         >
-          Dairy Cloud is an all-in-one solution to manage your dairy business. From
-          tracking milk production to managing sales, we offer an intuitive
-          platform to streamline operations.
+          Dairy Cloud is a powerful platform designed to streamline your dairy business operations. From tracking milk production to managing sales and inventory, we provide the tools you need to succeed.
         </motion.p>
+      </div>
 
+      {/* Features Section */}
+      <div style={styles.featuresSection}>
         <motion.h2
           style={styles.sectionTitle}
           initial={{ y: -20, opacity: 0 }}
@@ -98,12 +101,12 @@ function Home() {
         >
           Features
         </motion.h2>
-        <div style={styles.featureContainer}>
+        <div style={styles.featuresGrid}>
           {[
-            { icon: "📊", title: "Track Milk In & Out", description: "Monitor your daily milk production and distribution with ease." },
-            { icon: "💰", title: "Monitor Earnings", description: "Keep track of your revenue and expenses to maximize profits." },
+            { icon: "📊", title: "Track Milk In & Out", description: "Monitor daily milk production and distribution with ease." },
+            { icon: "💰", title: "Monitor Earnings", description: "Track revenue and expenses to maximize profits." },
             { icon: "👥", title: "Manage Customers", description: "Store customer and supplier details for seamless communication." },
-            { icon: "📦", title: "Inventory Management", description: "Maintain stock levels and track dairy product availability." },
+            { icon: "📦", title: "Inventory Management", description: "Maintain stock levels and track product availability." },
           ].map((feature, index) => (
             <motion.div
               key={index}
@@ -113,9 +116,9 @@ function Home() {
               transition={{ delay: index * 0.2, duration: 0.8 }}
               whileHover={{ scale: 1.05 }}
             >
-              <span style={styles.icon}>{feature.icon}</span>
-              <h3>{feature.title}</h3>
-              <p>{feature.description}</p>
+              <span style={styles.featureIcon}>{feature.icon}</span>
+              <h3 style={styles.featureTitle}>{feature.title}</h3>
+              <p style={styles.featureDescription}>{feature.description}</p>
             </motion.div>
           ))}
         </div>
@@ -129,10 +132,8 @@ const styles = {
     width: "100%",
     height: "auto",
   },
-  slideshow: {
-    paddingTop: "550px",
-    width: "100%",
-    height: "50vh",
+  heroSection: {
+    height: "100vh",
     backgroundSize: "cover",
     backgroundPosition: "center",
     display: "flex",
@@ -140,15 +141,12 @@ const styles = {
     justifyContent: "center",
     position: "relative",
   },
-  overlay: {
-    backgroundColor: "rgba(0, 0, 0, 0.5)", // Darker overlay for better contrast
+  heroOverlay: {
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
     color: "#fff",
     textAlign: "center",
     padding: "20px",
     borderRadius: "10px",
-    position: "absolute",
-    top: 0,
-    left: 0,
     width: "100%",
     height: "100%",
     display: "flex",
@@ -156,13 +154,22 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
   },
-  buttons: {
-    marginTop: "20px",
+  heroTitle: {
+    fontSize: "48px",
+    fontWeight: "bold",
+    marginBottom: "20px",
   },
-  btn: {
-    margin: "10px",
-    padding: "12px 24px",
-    fontSize: "16px",
+  heroSubtitle: {
+    fontSize: "24px",
+    marginBottom: "40px",
+  },
+  heroButtons: {
+    display: "flex",
+    gap: "20px",
+  },
+  heroButtonPrimary: {
+    padding: "15px 30px",
+    fontSize: "18px",
     fontWeight: "bold",
     border: "none",
     borderRadius: "5px",
@@ -171,43 +178,70 @@ const styles = {
     cursor: "pointer",
     transition: "0.3s ease",
   },
-  infoSection: {
-    padding: "50px 20px",
-    backgroundColor: "#f9f9f9", // Light theme
-    color: "#333",
+  heroButtonSecondary: {
+    padding: "15px 30px",
+    fontSize: "18px",
+    fontWeight: "bold",
+    border: "2px solid #FF5722",
+    borderRadius: "5px",
+    backgroundColor: "transparent",
+    color: "#FF5722",
+    cursor: "pointer",
+    transition: "0.3s ease",
+  },
+  aboutSection: {
+    padding: "80px 20px",
+    backgroundColor: "#f9f9f9",
     textAlign: "center",
   },
   sectionTitle: {
-    fontSize: "28px",
-    marginBottom: "15px",
-    borderBottom: "2px solid #FF5722",
-    display: "inline-block",
-    paddingBottom: "5px",
+    fontSize: "36px",
+    fontWeight: "bold",
+    marginBottom: "20px",
+    color: "#333",
   },
-  description: {
+  sectionDescription: {
     fontSize: "18px",
-    maxWidth: "700px",
+    maxWidth: "800px",
     margin: "0 auto",
-    lineHeight: "1.5",
+    lineHeight: "1.6",
+    color: "#666",
   },
-  featureContainer: {
+  featuresSection: {
+    padding: "80px 20px",
+    backgroundColor: "#fff",
+    textAlign: "center",
+  },
+  featuresGrid: {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-    gap: "20px",
-    marginTop: "30px",
+    gap: "30px",
+    maxWidth: "1200px",
+    margin: "0 auto",
+    padding: "20px",
   },
   featureCard: {
-    backgroundColor: "#fff",
-    padding: "20px",
+    backgroundColor: "#f9f9f9",
+    padding: "30px",
     borderRadius: "10px",
     textAlign: "center",
-    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+    boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
     transition: "transform 0.3s ease, box-shadow 0.3s ease",
   },
-  icon: {
-    fontSize: "40px",
-    display: "block",
-    marginBottom: "10px",
+  featureIcon: {
+    fontSize: "48px",
+    marginBottom: "20px",
+  },
+  featureTitle: {
+    fontSize: "24px",
+    fontWeight: "bold",
+    marginBottom: "15px",
+    color: "#333",
+  },
+  featureDescription: {
+    fontSize: "16px",
+    color: "#666",
+    lineHeight: "1.6",
   },
 };
 
