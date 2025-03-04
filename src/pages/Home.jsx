@@ -63,62 +63,22 @@ function Home() {
 
         <h2 style={styles.sectionTitle}>Features</h2>
         <div style={styles.featureContainer}>
-          <div
-            style={styles.featureCard}
-            onMouseEnter={(e) => {
-              e.target.style.transform = "scale(1.05)";
-              e.target.style.boxShadow = "0px 6px 15px rgba(0, 0, 0, 0.2)";
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = "scale(1)";
-              e.target.style.boxShadow = "0px 4px 10px rgba(0, 0, 0, 0.1)";
-            }}
-          >
+          <div style={styles.featureCard}>
             <span style={styles.icon}>📊</span>
             <h3>Track Milk In & Out</h3>
             <p>Monitor your daily milk production and distribution with ease.</p>
           </div>
-          <div
-            style={styles.featureCard}
-            onMouseEnter={(e) => {
-              e.target.style.transform = "scale(1.05)";
-              e.target.style.boxShadow = "0px 6px 15px rgba(0, 0, 0, 0.2)";
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = "scale(1)";
-              e.target.style.boxShadow = "0px 4px 10px rgba(0, 0, 0, 0.1)";
-            }}
-          >
+          <div style={styles.featureCard}>
             <span style={styles.icon}>💰</span>
             <h3>Monitor Earnings</h3>
             <p>Keep track of your revenue and expenses to maximize profits.</p>
           </div>
-          <div
-            style={styles.featureCard}
-            onMouseEnter={(e) => {
-              e.target.style.transform = "scale(1.05)";
-              e.target.style.boxShadow = "0px 6px 15px rgba(0, 0, 0, 0.2)";
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = "scale(1)";
-              e.target.style.boxShadow = "0px 4px 10px rgba(0, 0, 0, 0.1)";
-            }}
-          >
+          <div style={styles.featureCard}>
             <span style={styles.icon}>👥</span>
             <h3>Manage Customers</h3>
             <p>Store customer and supplier details for seamless communication.</p>
           </div>
-          <div
-            style={styles.featureCard}
-            onMouseEnter={(e) => {
-              e.target.style.transform = "scale(1.05)";
-              e.target.style.boxShadow = "0px 6px 15px rgba(0, 0, 0, 0.2)";
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = "scale(1)";
-              e.target.style.boxShadow = "0px 4px 10px rgba(0, 0, 0, 0.1)";
-            }}
-          >
+          <div style={styles.featureCard}>
             <span style={styles.icon}>📦</span>
             <h3>Inventory Management</h3>
             <p>Maintain stock levels and track dairy product availability.</p>
@@ -133,7 +93,6 @@ const styles = {
   homeContainer: {
     width: "100%",
     height: "auto",
-    overflowY: "auto",
   },
   slideshow: {
     paddingTop: "550px",
@@ -209,6 +168,10 @@ const styles = {
     textAlign: "center",
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
     transition: "transform 0.3s ease, box-shadow 0.3s ease",
+    ":hover": {
+      transform: "scale(1.05)",
+      boxShadow: "0px 6px 15px rgba(0, 0, 0, 0.2)",
+    },
   },
   icon: {
     fontSize: "40px",
