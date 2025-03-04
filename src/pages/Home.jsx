@@ -33,8 +33,22 @@ function Home() {
           <h1>Welcome to Dairy Cloud</h1>
           <p>Manage your dairy business efficiently.</p>
           <div style={styles.buttons}>
-            <button onClick={() => navigate("/login")} style={styles.btn}>Get Started</button>
-            <button onClick={() => navigate("/products")} style={styles.btn}>Explore</button>
+            <button
+              onClick={() => navigate("/login")}
+              style={styles.btn}
+              onMouseEnter={(e) => (e.target.style.backgroundColor = "#E64A19")}
+              onMouseLeave={(e) => (e.target.style.backgroundColor = "#FF5722")}
+            >
+              Get Started
+            </button>
+            <button
+              onClick={() => navigate("/products")}
+              style={styles.btn}
+              onMouseEnter={(e) => (e.target.style.backgroundColor = "#E64A19")}
+              onMouseLeave={(e) => (e.target.style.backgroundColor = "#FF5722")}
+            >
+              Explore
+            </button>
           </div>
         </div>
       </div>
@@ -49,22 +63,62 @@ function Home() {
 
         <h2 style={styles.sectionTitle}>Features</h2>
         <div style={styles.featureContainer}>
-          <div style={styles.featureCard}>
+          <div
+            style={styles.featureCard}
+            onMouseEnter={(e) => {
+              e.target.style.transform = "scale(1.05)";
+              e.target.style.boxShadow = "0px 6px 15px rgba(0, 0, 0, 0.2)";
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = "scale(1)";
+              e.target.style.boxShadow = "0px 4px 10px rgba(0, 0, 0, 0.1)";
+            }}
+          >
             <span style={styles.icon}>📊</span>
             <h3>Track Milk In & Out</h3>
             <p>Monitor your daily milk production and distribution with ease.</p>
           </div>
-          <div style={styles.featureCard}>
+          <div
+            style={styles.featureCard}
+            onMouseEnter={(e) => {
+              e.target.style.transform = "scale(1.05)";
+              e.target.style.boxShadow = "0px 6px 15px rgba(0, 0, 0, 0.2)";
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = "scale(1)";
+              e.target.style.boxShadow = "0px 4px 10px rgba(0, 0, 0, 0.1)";
+            }}
+          >
             <span style={styles.icon}>💰</span>
             <h3>Monitor Earnings</h3>
             <p>Keep track of your revenue and expenses to maximize profits.</p>
           </div>
-          <div style={styles.featureCard}>
+          <div
+            style={styles.featureCard}
+            onMouseEnter={(e) => {
+              e.target.style.transform = "scale(1.05)";
+              e.target.style.boxShadow = "0px 6px 15px rgba(0, 0, 0, 0.2)";
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = "scale(1)";
+              e.target.style.boxShadow = "0px 4px 10px rgba(0, 0, 0, 0.1)";
+            }}
+          >
             <span style={styles.icon}>👥</span>
             <h3>Manage Customers</h3>
             <p>Store customer and supplier details for seamless communication.</p>
           </div>
-          <div style={styles.featureCard}>
+          <div
+            style={styles.featureCard}
+            onMouseEnter={(e) => {
+              e.target.style.transform = "scale(1.05)";
+              e.target.style.boxShadow = "0px 6px 15px rgba(0, 0, 0, 0.2)";
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = "scale(1)";
+              e.target.style.boxShadow = "0px 4px 10px rgba(0, 0, 0, 0.1)";
+            }}
+          >
             <span style={styles.icon}>📦</span>
             <h3>Inventory Management</h3>
             <p>Maintain stock levels and track dairy product availability.</p>
@@ -123,9 +177,6 @@ const styles = {
     cursor: "pointer",
     transition: "0.3s ease",
   },
-  btnHover: {
-    backgroundColor: "#E64A19",
-  },
   infoSection: {
     padding: "50px 20px",
     backgroundColor: "#f4f4f4", // Light theme
@@ -159,14 +210,11 @@ const styles = {
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
     transition: "transform 0.3s ease, box-shadow 0.3s ease",
   },
-  featureCardHover: {
-    transform: "scale(1.05)",
-    boxShadow: "0px 6px 15px rgba(0, 0, 0, 0.2)",
-  },
   icon: {
     fontSize: "40px",
     display: "block",
     marginBottom: "10px",
   },
 };
+
 export default Home;
