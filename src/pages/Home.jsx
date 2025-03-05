@@ -7,7 +7,7 @@ const images = [
   "https://c4.wallpaperflare.com/wallpaper/334/1005/170/board-cheese-milk-bokeh-cheese-hd-wallpaper-preview.jpg",
   "https://c4.wallpaperflare.com/wallpaper/679/119/635/spoon-spoon-cheese-sour-cream-wallpaper-preview.jpg",
   "https://c4.wallpaperflare.com/wallpaper/1002/72/922/milk-cheese-grapes-nuts-wallpaper-preview.jpg",
-  "https://c4.wallpaperflare.com/wallpaper/117/977/111/food-milk-splash-wallpaper-preview.jpg"
+  "https://www.shutterstock.com/image-photo/dairy-products-milk-cheese-sour-600nw-1273487506.jpg"
 ];
 
 function Home() {
