@@ -1,16 +1,93 @@
-import React from "react";
+import React, { useState } from "react";
 
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setError("");
+
+    // Basic validation
+    if (!email || !password) {
+      setError("Please fill in all fields.");
+      return;
+    }
+
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    // Simulate login process
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      alert("Login successful!");
+    }, 2000);
+  };
+
   return (
     <div style={styles.container}>
       <div style={styles.card}>
         <h2 style={styles.title}>Dairy Clouds - Login</h2>
-        <input type="text" placeholder="Email" style={styles.input} />
-        <input type="password" placeholder="Password" style={styles.input} />
-        <button style={styles.loginButton}>Login</button>
+        <form onSubmit={handleSubmit}>
+          <div style={styles.inputContainer}>
+            <label htmlFor="email" style={styles.label}>
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              style={styles.input}
+              required
+            />
+          </div>
+          <div style={styles.inputContainer}>
+            <label htmlFor="password" style={styles.label}>
+              Password
+            </label>
+            <div style={styles.passwordContainer}>
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                style={styles.input}
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                style={styles.toggleButton}
+              >
+                {showPassword ? "Hide" : "Show"}
+              </button>
+            </div>
+          </div>
+          {error && <p style={styles.error}>{error}</p>}
+          <button
+            type="submit"
+            style={styles.loginButton}
+            disabled={loading}
+          >
+            {loading ? "Logging in..." : "Login"}
+          </button>
+        </form>
         <div style={styles.linksContainer}>
-          <a href="#" style={styles.link}>Forgot Password?</a>
-          <a href="#" style={styles.link}>New User? Register</a>
+          <a href="#" style={styles.link}>
+            Forgot Password?
+          </a>
+          <a href="#" style={styles.link}>
+            New User? Register
+          </a>
         </div>
       </div>
     </div>
@@ -37,13 +114,34 @@ const styles = {
     marginBottom: "20px",
     color: "#333",
   },
+  inputContainer: {
+    marginBottom: "15px",
+    textAlign: "left",
+  },
+  label: {
+    display: "block",
+    marginBottom: "5px",
+    color: "#333",
+  },
   input: {
     width: "100%",
     padding: "10px",
-    margin: "10px 0",
     border: "1px solid #ccc",
     borderRadius: "5px",
     fontSize: "16px",
+  },
+  passwordContainer: {
+    position: "relative",
+  },
+  toggleButton: {
+    position: "absolute",
+    right: "10px",
+    top: "50%",
+    transform: "translateY(-50%)",
+    background: "none",
+    border: "none",
+    color: "#00796B",
+    cursor: "pointer",
   },
   loginButton: {
     width: "100%",
@@ -65,6 +163,11 @@ const styles = {
     color: "#00796B",
     textDecoration: "none",
     fontSize: "14px",
+  },
+  error: {
+    color: "red",
+    fontSize: "14px",
+    marginTop: "10px",
   },
 };
 
