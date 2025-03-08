@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import FacebookLogin from "react-facebook-login-lite";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import eye icons from React Icons
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -70,7 +71,12 @@ function Login() {
             <img src={user.image} alt="Profile" style={styles.profileImage} />
             <h3>Welcome, {user.name}!</h3>
             <p>Email: {user.email}</p>
-            <button onClick={() => setUser(null)} style={styles.logoutButton}>
+            <button
+              onClick={() => setUser(null)}
+              style={styles.logoutButton}
+              onMouseEnter={(e) => (e.target.style.backgroundColor = "#c53030")}
+              onMouseLeave={(e) => (e.target.style.backgroundColor = "#e53e3e")}
+            >
               Logout
             </button>
           </div>
@@ -110,7 +116,7 @@ function Login() {
                     onClick={() => setShowPassword(!showPassword)}
                     style={styles.toggleButton}
                   >
-                    {showPassword ? "Hide" : "Show"}
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
                   </button>
                 </div>
               </div>
@@ -119,6 +125,8 @@ function Login() {
                 type="submit"
                 style={styles.loginButton}
                 disabled={loading}
+                onMouseEnter={(e) => (e.target.style.backgroundColor = "#005f56")}
+                onMouseLeave={(e) => (e.target.style.backgroundColor = "#00796B")}
               >
                 {loading ? "Logging in..." : "Login"}
               </button>
@@ -141,7 +149,6 @@ function Login() {
                 onSuccess={(response) => console.log("Facebook login success:", response)}
                 onFailure={() => console.log("Facebook login failed")}
               />
-
             </div>
             <div style={styles.linksContainer}>
               <a href="#" style={styles.link}>
@@ -203,9 +210,6 @@ const styles = {
     backgroundColor: "#f7fafc",
     transition: "border-color 0.3s ease",
   },
-  inputFocus: {
-    borderColor: "#00796B",
-  },
   passwordContainer: {
     position: "relative",
   },
@@ -218,8 +222,10 @@ const styles = {
     border: "none",
     color: "#00796B",
     cursor: "pointer",
-    fontSize: "14px",
-    fontWeight: "500",
+    fontSize: "18px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   loginButton: {
     width: "100%",
@@ -234,30 +240,8 @@ const styles = {
     marginTop: "15px",
     transition: "background-color 0.3s ease",
   },
-  loginButtonHover: {
-    backgroundColor: "#005f56",
-  },
   socialLogin: {
     marginTop: "20px",
-  },
-  socialButton: {
-    width: "100%",
-    padding: "12px",
-    backgroundColor: "#fff",
-    border: "1px solid #e2e8f0",
-    borderRadius: "8px",
-    fontSize: "14px",
-    fontWeight: "500",
-    cursor: "pointer",
-    margin: "8px 0",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    color: "#4a5568",
-    transition: "background-color 0.3s ease",
-  },
-  socialButtonHover: {
-    backgroundColor: "#f7fafc",
   },
   linksContainer: {
     marginTop: "20px",
@@ -270,9 +254,6 @@ const styles = {
     fontSize: "14px",
     fontWeight: "500",
     transition: "color 0.3s ease",
-  },
-  linkHover: {
-    color: "#005f56",
   },
   error: {
     color: "#e53e3e",
@@ -301,8 +282,6 @@ const styles = {
     fontWeight: "600",
     transition: "background-color 0.3s ease",
   },
-  logoutButtonHover: {
-    backgroundColor: "#c53030",
-  },
 };
+
 export default Login;
