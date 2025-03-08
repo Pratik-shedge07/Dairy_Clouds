@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function About() {
+  const [animate, setAnimate] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => setAnimate(true), 200); // Delay to make the effect smoother
+  }, []);
+
   return (
-    <div style={styles.container}>
+    <div style={styles.container} className={`page-fade-in ${animate ? "active" : ""}`}>
       <div style={styles.content}>
-        <h2 style={styles.heading} className="fade-in">About Dairy Cloud</h2>
-        <p style={styles.description}>
+        <h2 style={styles.heading} className={`fade-in ${animate ? "active" : ""}`}>About Dairy Cloud</h2>
+        <p style={styles.description} className={`fade-in ${animate ? "active" : ""}`}>
           Dairy Cloud is a modern platform for managing dairy business operations. 
           From milk tracking to sales analytics, we provide an efficient solution to streamline your dairy management.
         </p>
 
         {/* Features Section */}
-        <div style={styles.features}>
+        <div style={styles.features} className={`fade-in ${animate ? "active" : ""}`}>
           {["📊 Business Insights", "🔒 Secure & Reliable", "🎨 User-Friendly UI"].map((feature, index) => (
             <div key={index} style={styles.featureCard} className="hover-card">
               <h3>{feature}</h3>
@@ -21,13 +27,13 @@ function About() {
         </div>
 
         {/* Team Section */}
-        <h2 style={styles.heading} className="fade-in">Meet the Team</h2>
+        <h2 style={styles.heading} className={`fade-in ${animate ? "active" : ""}`}>Meet the Team</h2>
         <div style={styles.team}>
           {[
             { name: "Yash Yeole", role: "Full Stack Developer", github: "https://github.com/yashyeole09", linkedin: "https://www.linkedin.com/in/yashyeole09/", img: "https://github.com/yashyeole09.png" },
             { name: "Pratik Shedge", role: "UI/UX Designer", github: "https://github.com/Pratik-shedge07", linkedin: "https://www.linkedin.com/in/pratik-shedge07/", img: "https://github.com/Pratik-shedge07.png" }
           ].map((member, index) => (
-            <div key={index} style={styles.memberCard} className="hover-lift">
+            <div key={index} style={styles.memberCard} className={`hover-lift slide-in ${animate ? "active" : ""}`}>
               <img src={member.img} alt={member.name} style={styles.profilePic} />
               <h3>{member.name}</h3>
               <p>{member.role}</p>
@@ -43,6 +49,18 @@ function About() {
       {/* Hover & Animation Effects */}
       <style>
         {`
+          /* Page fade-in animation */
+          .page-fade-in {
+            opacity: 0;
+            transform: scale(0.98);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+          }
+
+          .page-fade-in.active {
+            opacity: 1;
+            transform: scale(1);
+          }
+
           .hover-card:hover {
             transform: scale(1.05);
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
@@ -59,14 +77,28 @@ function About() {
             transition: text-decoration 0.3s ease-in-out;
           }
 
+          /* Fade-in animation for sections */
           .fade-in {
             opacity: 0;
-            animation: fadeIn 1.5s ease-in-out forwards;
+            transform: translateY(20px);
+            transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
           }
 
-          @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+          .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+          }
+
+          /* Slide-in animation for team members */
+          .slide-in {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+          }
+
+          .slide-in.active {
+            opacity: 1;
+            transform: translateX(0);
           }
 
           @media (max-width: 768px) {

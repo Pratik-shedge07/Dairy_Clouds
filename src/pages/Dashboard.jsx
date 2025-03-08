@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { FaBars, FaUser, FaSignOutAlt, FaShoppingCart, FaBoxOpen } from "react-icons/fa";
-import userImage from "../icons/man.png";
+import userImage from "../icons/man.png"; // Sample user image
 
 function Dashboard() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -8,8 +9,10 @@ function Dashboard() {
     name: "Guest User",
     email: "guest@example.com",
     contact: "Not Provided",
-    profilePic: userImage, // Correctly using imported image
+    profilePic: userImage,
   });
+
+  const navigate = useNavigate(); // Navigation hook
 
   useEffect(() => {
     const savedUser = JSON.parse(localStorage.getItem("user"));
@@ -17,6 +20,12 @@ function Dashboard() {
       setUser(savedUser);
     }
   }, []);
+
+  // Logout function
+  const handleLogout = () => {
+    localStorage.removeItem("user"); // Clear stored user data
+    navigate("/login"); // Redirect to login page
+  };
 
   return (
     <div style={styles.dashboardContainer}>
@@ -31,7 +40,7 @@ function Dashboard() {
               <button style={styles.menuItem}>
                 <FaUser style={styles.menuIcon} /> Profile
               </button>
-              <button style={styles.menuItem}>
+              <button style={styles.menuItem} onClick={handleLogout}>
                 <FaSignOutAlt style={styles.menuIcon} /> Logout
               </button>
             </div>
@@ -64,139 +73,25 @@ function Dashboard() {
 }
 
 const styles = {
-  dashboardContainer: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100vh",
-    background: "#f4f4f4",
-    padding: "20px",
-  },
-  dashboardBox: {
-    width: "80%",
-    maxWidth: "900px",
-    background: "white",
-    padding: "30px",
-    borderRadius: "12px",
-    boxShadow: "0 5px 20px rgba(0, 0, 0, 0.2)",
-    textAlign: "center",
-    position: "relative",
-  },
-  hamburgerMenu: {
-    position: "absolute",
-    top: "15px",
-    right: "15px",
-  },
-  hamburgerBtn: {
-    fontSize: "24px",
-    background: "none",
-    border: "none",
-    cursor: "pointer",
-    color: "#333",
-  },
-  menuDropdown: {
-    position: "absolute",
-    top: "40px",
-    right: "0",
-    width: "160px",
-    background: "white",
-    borderRadius: "8px",
-    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
-    overflow: "hidden",
-    zIndex: "1000",
-  },
-  menuItem: {
-    width: "100%",
-    padding: "12px",
-    textAlign: "left",
-    display: "flex",
-    alignItems: "center",
-    fontSize: "16px",
-    border: "none",
-    background: "none",
-    cursor: "pointer",
-  },
-  menuIcon: {
-    marginRight: "10px",
-    fontSize: "18px",
-  },
-  overlay: {
-    position: "fixed",
-    top: "0",
-    left: "0",
-    width: "100%",
-    height: "100%",
-    background: "rgba(0, 0, 0, 0.4)",
-    zIndex: "10",
-  },
-  dashboardTitle: {
-    fontSize: "30px",
-    fontWeight: "bold",
-    color: "#333",
-    marginBottom: "25px",
-  },
-  userSection: {
-    textAlign: "center",
-    marginBottom: "25px",
-  },
-  profilePic: {
-    width: "120px",
-    height: "120px",
-    borderRadius: "50%",
-    border: "4px solid #ddd",
-    marginBottom: "10px",
-  },
-  userName: {
-    fontSize: "22px",
-    fontWeight: "bold",
-    color: "#333",
-  },
-  userEmail: {
-    fontSize: "16px",
-    color: "#666",
-  },
-  userContact: {
-    fontSize: "16px",
-    color: "#666",
-  },
-  dashboardSections: {
-    display: "flex",
-    gap: "30px",
-    justifyContent: "center",
-    flexWrap: "wrap",
-  },
-  dashboardCard: {
-    background: "white",
-    padding: "25px",
-    borderRadius: "12px",
-    width: "300px",
-    textAlign: "center",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-  },
-  cardIcon: {
-    fontSize: "50px",
-    color: "#000",
-    marginBottom: "15px",
-  },
-  cardTitle: {
-    fontSize: "22px",
-    fontWeight: "bold",
-    color: "#333",
-  },
-  cardText: {
-    fontSize: "16px",
-    color: "#666",
-    margin: "15px 0",
-  },
-  cardBtn: {
-    background: "#FF5722",
-    color: "white",
-    padding: "12px 20px",
-    border: "none",
-    borderRadius: "6px",
-    cursor: "pointer",
-    fontSize: "16px",
-  },
+  dashboardContainer: { display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", background: "#f4f4f4", padding: "20px" },
+  dashboardBox: { width: "80%", maxWidth: "900px", background: "white", padding: "30px", borderRadius: "12px", boxShadow: "0 5px 20px rgba(0, 0, 0, 0.2)", textAlign: "center", position: "relative" },
+  hamburgerMenu: { position: "absolute", top: "15px", right: "15px" },
+  hamburgerBtn: { fontSize: "24px", background: "none", border: "none", cursor: "pointer", color: "#333" },
+  menuDropdown: { position: "absolute", top: "40px", right: "0", width: "160px", background: "white", borderRadius: "8px", boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)", overflow: "hidden", zIndex: "1000" },
+  menuItem: { width: "100%", padding: "12px", textAlign: "left", display: "flex", alignItems: "center", fontSize: "16px", border: "none", background: "none", cursor: "pointer" },
+  menuIcon: { marginRight: "10px", fontSize: "18px" },
+  overlay: { position: "fixed", top: "0", left: "0", width: "100%", height: "100%", background: "rgba(0, 0, 0, 0.4)", zIndex: "10" },
+  dashboardTitle: { fontSize: "30px", fontWeight: "bold", color: "#333", marginBottom: "25px" },
+  profilePic: { width: "120px", height: "120px", borderRadius: "50%", border: "4px solid #ddd", marginBottom: "10px" },
+  userName: { fontSize: "22px", fontWeight: "bold", color: "#333" },
+  userEmail: { fontSize: "16px", color: "#666" },
+  userContact: { fontSize: "16px", color: "#666" },
+  dashboardSections: { display: "flex", gap: "30px", justifyContent: "center", flexWrap: "wrap" },
+  dashboardCard: { background: "white", padding: "25px", borderRadius: "12px", width: "300px", textAlign: "center", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" },
+  cardIcon: { fontSize: "50px", color: "#000", marginBottom: "15px" },
+  cardTitle: { fontSize: "22px", fontWeight: "bold", color: "#333" },
+  cardText: { fontSize: "16px", color: "#666", margin: "15px 0" },
+  cardBtn: { background: "#FF5722", color: "white", padding: "12px 20px", border: "none", borderRadius: "6px", cursor: "pointer", fontSize: "16px" },
 };
 
 export default Dashboard;
