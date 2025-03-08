@@ -12,7 +12,7 @@ function Footer() {
           <h3>Contact Us</h3>
           <p>Phone: +91 7412589630</p>
           <p>Email: dairyclouds79@gmail.com</p>
-          <p>Address: Pune,Maharashtra</p>
+          <p>Address: Pune, Maharashtra</p>
         </div>
 
         <div style={styles.section}>
@@ -46,7 +46,7 @@ function Footer() {
         <div style={styles.section}>
           <h3>Newsletter Signup</h3>
           <form>
-            <input type="email" placeholder="eg dairyclouds79@gmailcom" required style={styles.input} />
+            <input type="email" placeholder="eg dairyclouds79@gmail.com" required style={styles.input} />
             <button type="submit" style={styles.button}>Subscribe</button>
           </form>
         </div>
@@ -59,18 +59,19 @@ const styles = {
   footer: {
     background: "#004D40", // Dark Teal
     color: "#FFFFFF",
-    padding: "40px 0",
+    padding: "40px 20px",
     textAlign: "center",
   },
   footerContent: {
     display: "flex",
-    justifyContent: "space-around",
     flexWrap: "wrap",
+    justifyContent: "space-around",
     maxWidth: "1200px",
     margin: "0 auto",
+    gap: "20px",
   },
   section: {
-    flex: "1",
+    flex: "1 1 200px", // Flex-grow, flex-shrink, flex-basis
     minWidth: "200px",
     margin: "10px",
   },
@@ -84,6 +85,9 @@ const styles = {
     display: "block",
     margin: "5px 0",
     transition: "0.3s",
+    ":hover": {
+      color: "#009688", // Vibrant Teal on hover
+    },
   },
   socialIcons: {
     display: "flex",
@@ -96,13 +100,14 @@ const styles = {
     width: "30px",
     height: "30px",
     transition: "transform 0.3s ease",
-  },
-  iconHover: {
-    transform: "scale(1.2)", // Grow on hover
+    ":hover": {
+      transform: "scale(1.2)", // Grow on hover
+    },
   },
   input: {
     padding: "8px",
-    width: "80%",
+    width: "100%",
+    maxWidth: "250px",
     marginBottom: "10px",
     borderRadius: "4px",
     border: "none",
@@ -115,6 +120,23 @@ const styles = {
     color: "#FFFFFF",
     cursor: "pointer",
     transition: "0.3s",
+    ":hover": {
+      background: "#00796B", // Darker Teal on hover
+    },
+  },
+  "@media (max-width: 768px)": {
+    footerContent: {
+      flexDirection: "column",
+      alignItems: "center",
+      textAlign: "center",
+    },
+    section: {
+      flex: "1 1 100%",
+      maxWidth: "100%",
+    },
+    socialIcons: {
+      justifyContent: "center",
+    },
   },
 };
 
