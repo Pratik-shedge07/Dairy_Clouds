@@ -69,7 +69,9 @@ function Products() {
       <div style={styles.productsContainer}>
         {filteredProducts.map((product) => (
           <div key={product.id} style={styles.card}>
-            <img src={product.image} alt={product.name} style={styles.productImage} />
+            <div style={styles.imageContainer}>
+              <img src={product.image} alt={product.name} style={styles.productImage} />
+            </div>
             <h3 style={styles.productName}>{product.name}</h3>
             <p style={styles.productPrice}>{product.price}</p>
             <div style={styles.buttonContainer}>
@@ -112,11 +114,31 @@ const styles = {
     boxShadow: "5px 5px 15px rgba(0,0,0,0.2)",
     textAlign: "center",
     backgroundColor: "#f9f9f9",
-    transition: "transform 0.3s ease, box-shadow 0.3s ease",
+    transition: "transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease",
     cursor: "pointer",
-    ":hover": { transform: "scale(1.05)", boxShadow: "8px 8px 20px rgba(0,0,0,0.3)" },
+    overflow: "hidden",
+    position: "relative",
+    ":hover": {
+      transform: "scale(1.05)",
+      boxShadow: "8px 8px 20px rgba(0,0,0,0.3)",
+      borderColor: "#005f56",
+    },
   },
-  productImage: { width: "100%", height: "200px", objectFit: "cover", borderRadius: "10px", border: "2px solid #ddd" },
+  imageContainer: {
+    overflow: "hidden",
+    borderRadius: "10px",
+    marginBottom: "15px",
+  },
+  productImage: {
+    width: "100%",
+    height: "200px",
+    objectFit: "cover",
+    borderRadius: "10px",
+    transition: "transform 0.3s ease",
+    ":hover": {
+      transform: "scale(1.1)",
+    },
+  },
   productName: { fontSize: "22px", margin: "10px 0", fontWeight: "bold", color: "#333" },
   productPrice: { fontSize: "20px", color: "#00796B", fontWeight: "bold", marginBottom: "15px" },
   buttonContainer: { display: "flex", justifyContent: "space-between", gap: "10px", marginTop: "15px" },
