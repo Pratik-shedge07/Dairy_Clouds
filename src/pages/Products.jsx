@@ -23,7 +23,7 @@ function Products() {
     { id: 18, name: "Green Tea", price: "₹70", image: "https://assets.epicurious.com/photos/5887d21b5f76684c78cf57db/16:9/w_2560%2Cc_limit/green_tea_24012017.jpg", category: "Beverages" },
     { id: 13, name: "Fresh Cream", price: "₹180", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBgmrHxs4IK_-0vUrGnsSOp6eiShHjV7rx7Q&s", category: "Dairy" },
     { id: 14, name: "Skimmed Milk", price: "₹60", image: "https://ariso.blob.core.windows.net/ariso/ruploads/31052022-skimmed-vs-toned-milk-whats-the-difference.jpg", category: "Dairy" },
-    { id: 15, name: "Buttermilk", price: "₹40", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlbpAaQOlwd8hGpKxzwYpuM9NnzA3mwK4alQ&s", category: "Dairy" },
+    { id: 15, name: "Buttermilk", price: "₹40", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlbpAaQOlwd8hGpKxzwYpuM9NnzA3mwK4alQ&s", category: "Dairy" },
   ];
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -63,7 +63,6 @@ function Products() {
           <option value="Dairy">Dairy</option>
           <option value="Beverages">Beverages</option>
           <option value="Desserts">Desserts</option>
-          
         </select>
       </div>
 
@@ -74,10 +73,22 @@ function Products() {
             <h3 style={styles.productName}>{product.name}</h3>
             <p style={styles.productPrice}>{product.price}</p>
             <div style={styles.buttonContainer}>
-              <button style={styles.addToCart} onClick={() => handleAddToCart(product.name)}>
+              <button
+                style={styles.addToCart}
+                onClick={() => handleAddToCart(product.name)}
+                onMouseEnter={(e) => (e.target.style.backgroundColor = "#005f56")}
+                onMouseLeave={(e) => (e.target.style.backgroundColor = "#00796B")}
+              >
                 <FaShoppingCart style={styles.cartIcon} /> Add to Cart
               </button>
-              <button style={styles.buyNow} onClick={() => handleBuyNow(product.name)}>Buy Now</button>
+              <button
+                style={styles.buyNow}
+                onClick={() => handleBuyNow(product.name)}
+                onMouseEnter={(e) => (e.target.style.backgroundColor = "#e64a19")}
+                onMouseLeave={(e) => (e.target.style.backgroundColor = "#FF5722")}
+              >
+                Buy Now
+              </button>
             </div>
           </div>
         ))}
@@ -93,15 +104,45 @@ const styles = {
   searchIcon: { marginRight: "8px", color: "#00796B" },
   searchInput: { border: "none", outline: "none", width: "100%" },
   filterDropdown: { padding: "10px", borderRadius: "8px", border: "2px solid #00796B", backgroundColor: "#fff", fontSize: "16px", cursor: "pointer" },
-  productsContainer: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "40px", justifyContent: "center", padding: "20px" },
-  card: { border: "2px solid #00796B", borderRadius: "12px", padding: "20px", boxShadow: "5px 5px 15px rgba(0,0,0,0.2)", textAlign: "center", backgroundColor: "#f9f9f9", maxWidth: "280px", transition: "transform 0.3s ease" },
+  productsContainer: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "20px", justifyContent: "center", padding: "20px" },
+  card: {
+    border: "2px solid #00796B",
+    borderRadius: "12px",
+    padding: "20px",
+    boxShadow: "5px 5px 15px rgba(0,0,0,0.2)",
+    textAlign: "center",
+    backgroundColor: "#f9f9f9",
+    transition: "transform 0.3s ease, box-shadow 0.3s ease",
+    cursor: "pointer",
+    ":hover": { transform: "scale(1.05)", boxShadow: "8px 8px 20px rgba(0,0,0,0.3)" },
+  },
   productImage: { width: "100%", height: "200px", objectFit: "cover", borderRadius: "10px", border: "2px solid #ddd" },
   productName: { fontSize: "22px", margin: "10px 0", fontWeight: "bold", color: "#333" },
   productPrice: { fontSize: "20px", color: "#00796B", fontWeight: "bold", marginBottom: "15px" },
   buttonContainer: { display: "flex", justifyContent: "space-between", gap: "10px", marginTop: "15px" },
-  addToCart: { backgroundColor: "#00796B", color: "#fff", border: "none", padding: "12px 15px", borderRadius: "8px", cursor: "pointer", display: "flex", alignItems: "center", fontSize: "14px", transition: "background 0.3s ease" },
+  addToCart: {
+    backgroundColor: "#00796B",
+    color: "#fff",
+    border: "none",
+    padding: "12px 15px",
+    borderRadius: "8px",
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    fontSize: "14px",
+    transition: "background 0.3s ease",
+  },
   cartIcon: { marginRight: "5px" },
-  buyNow: { backgroundColor: "#FF5722", color: "#fff", border: "none", padding: "12px 15px", borderRadius: "8px", cursor: "pointer", fontSize: "14px", transition: "background 0.3s ease" }
+  buyNow: {
+    backgroundColor: "#FF5722",
+    color: "#fff",
+    border: "none",
+    padding: "12px 15px",
+    borderRadius: "8px",
+    cursor: "pointer",
+    fontSize: "14px",
+    transition: "background 0.3s ease",
+  },
 };
 
 export default Products;
