@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom"; 
 import { FaBars, FaUser, FaSignOutAlt, FaShoppingCart, FaBoxOpen } from "react-icons/fa";
-import userImage from "../icons/man.png"; // Sample user image
+import "animate.css"; // Import animate.css for animations
+import userImage from "../icons/man.png"; 
 
 function Dashboard() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -12,7 +13,7 @@ function Dashboard() {
     profilePic: userImage,
   });
 
-  const navigate = useNavigate(); // Navigation hook
+  const navigate = useNavigate();
 
   useEffect(() => {
     const savedUser = JSON.parse(localStorage.getItem("user"));
@@ -21,16 +22,15 @@ function Dashboard() {
     }
   }, []);
 
-  // Logout function
   const handleLogout = () => {
-    localStorage.removeItem("user"); // Clear stored user data
-    navigate("/login"); // Redirect to login page
+    localStorage.removeItem("user");
+    navigate("/login");
   };
 
   return (
-    <div style={styles.dashboardContainer}>
+    <div className="animate__animated animate__fadeIn" style={styles.dashboardContainer}>
       {menuOpen && <div style={styles.overlay} onClick={() => setMenuOpen(false)}></div>}
-      <div style={styles.dashboardBox}>
+      <div style={styles.dashboardBox} className="animate__animated animate__zoomIn">
         <div style={styles.hamburgerMenu}>
           <button onClick={() => setMenuOpen(!menuOpen)} style={styles.hamburgerBtn}>
             <FaBars />
@@ -47,23 +47,23 @@ function Dashboard() {
           )}
         </div>
         <h1 style={styles.dashboardTitle}>User Dashboard</h1>
-        <div style={styles.userSection}>
+        <div style={styles.userSection} className="animate__animated animate__fadeInUp">
           <img src={user.profilePic} alt="Profile" style={styles.profilePic} />
           <h3 style={styles.userName}>{user.name}</h3>
           <p style={styles.userEmail}>{user.email}</p>
           <p style={styles.userContact}>Contact: {user.contact}</p>
         </div>
         <div style={styles.dashboardSections}>
-          <div style={styles.dashboardCard}>
+          <div style={styles.dashboardCard} className="animate__animated animate__bounceInLeft">
             <FaBoxOpen style={styles.cardIcon} />
             <h2 style={styles.cardTitle}>Your Orders</h2>
             <p style={styles.cardText}>Track your recent orders and manage purchases.</p>
             <button style={styles.cardBtn}>View Orders</button>
           </div>
-          <div style={styles.dashboardCard}>
+          <div style={styles.dashboardCard} className="animate__animated animate__bounceInRight">
             <FaShoppingCart style={styles.cardIcon} />
             <h2 style={styles.cardTitle}>Your Cart</h2>
-            <p style={styles.cardText}>Review items in your cart before checkout the details</p>
+            <p style={styles.cardText}>Review items in your cart before checkout.</p>
             <button style={styles.cardBtn}>View Cart</button>
           </div>
         </div>
