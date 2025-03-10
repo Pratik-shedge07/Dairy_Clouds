@@ -82,6 +82,15 @@ function Services() {
     });
   };
 
+  const handleDeleteTransaction = (receiptNo) => {
+    const updatedTransactions = transactions.filter(txn => txn.receiptNo !== receiptNo);
+    setTransactions(updatedTransactions);
+  };
+
+  const handleRemoveAllTransactions = () => {
+    setTransactions([]);
+  };
+
   const styles = {
     container: {
       padding: "20px",
@@ -147,6 +156,23 @@ function Services() {
       padding: "10px",
       fontWeight: "bold",
       color: "#777",
+    },
+    deleteButton: {
+      backgroundColor: "#D32F2F",
+      color: "#fff",
+      border: "none",
+      borderRadius: "5px",
+      padding: "5px 10px",
+      cursor: "pointer",
+    },
+    removeAllButton: {
+      backgroundColor: "#D32F2F",
+      color: "#fff",
+      border: "none",
+      borderRadius: "5px",
+      padding: "10px 20px",
+      cursor: "pointer",
+      marginBottom: "10px",
     },
   };
 
@@ -217,6 +243,9 @@ function Services() {
       {/* Transaction Search & Table */}
       <motion.div style={styles.section} initial={{ y: 50 }} animate={{ y: 0 }} transition={{ duration: 0.5 }}>
         <h2 style={{ fontSize: "20px", marginBottom: "10px" }}>Recent Transactions</h2>
+        <button onClick={handleRemoveAllTransactions} style={styles.removeAllButton}>
+          Remove All Transactions
+        </button>
         <input
           type="text"
           placeholder="Search by Receipt Number..."
@@ -231,6 +260,7 @@ function Services() {
               <th style={styles.tableHeader}>Type</th>
               <th style={styles.tableHeader}>Quantity (L)</th>
               <th style={styles.tableHeader}>Date</th>
+              <th style={styles.tableHeader}>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -249,11 +279,16 @@ function Services() {
                   </td>
                   <td style={styles.tableCell}>{txn.quantity}</td>
                   <td style={styles.tableCell}>{txn.date}</td>
+                  <td style={styles.tableCell}>
+                    <button onClick={() => handleDeleteTransaction(txn.receiptNo)} style={styles.deleteButton}>
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="4" style={styles.noTransactions}>
+                <td colSpan="5" style={styles.noTransactions}>
                   No transactions found
                 </td>
               </tr>
