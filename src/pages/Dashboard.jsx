@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import { FaBars, FaUser, FaSignOutAlt, FaShoppingCart, FaBoxOpen } from "react-icons/fa";
 import "animate.css"; // Import animate.css for animations
 import userImage from "../icons/man.png"; 
@@ -23,7 +23,13 @@ function Dashboard() {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
+    localStorage.clear(); // Clear all stored data
+    setUser({
+      name: "Guest User",
+      email: "guest@example.com",
+      contact: "Not Provided",
+      profilePic: userImage,
+    });
     navigate("/login");
   };
 
@@ -48,7 +54,7 @@ function Dashboard() {
         </div>
         <h1 style={styles.dashboardTitle}>User Dashboard</h1>
         <div style={styles.userSection} className="animate__animated animate__fadeInUp">
-          <img src={user.profilePic} alt="Profile" style={styles.profilePic} />
+          <img src={user.profilePic || userImage} alt="Profile" style={styles.profilePic} />
           <h3 style={styles.userName}>{user.name}</h3>
           <p style={styles.userEmail}>{user.email}</p>
           <p style={styles.userContact}>Contact: {user.contact}</p>

@@ -13,7 +13,7 @@ const images = [
 function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);

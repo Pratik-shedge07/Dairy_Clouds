@@ -12,9 +12,11 @@ function Navbar() {
         <Link to="/" style={styles.link}>Home</Link>
         <Link to="/products" style={styles.link}>Products</Link>
         <Link to="/dashboard" style={styles.link}>Dashboard</Link>
+        <Link to="/services" style={styles.link}>Services</Link>
         <Link to="/about" style={styles.link}>About</Link>
         <Link to="/contact" style={styles.link}>Contact Us</Link>
         <Link to="/login" style={styles.link}>Login</Link>
+        
       </div>
     </nav>
   );
