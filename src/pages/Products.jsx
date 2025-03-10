@@ -44,7 +44,6 @@ function Products() {
       { id: 14, name: "Skimmed Milk", price: "₹60", image: "https://ariso.blob.core.windows.net/ariso/ruploads/31052022-skimmed-vs-toned-milk-whats-the-difference.jpg", category: "Dairy" },
       { id: 15, name: "Buttermilk", price: "₹40", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlbpAaQOlwd8hGpKxzwYpuM9NnzA3mwK4alQ&s", category: "Dairy" },
     ];
-
   const filteredProducts = allProducts.filter((product) =>
     (selectedCategory === "All" || product.category === selectedCategory) &&
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -61,25 +60,17 @@ function Products() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div style={{ padding: "20px", marginTop: "80px" }}> {/* Added margin-top for spacing */}
       <Toaster />
 
-      {/* Search Bar */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+      {/* Search Bar and Tabs */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", padding: "10px 0" }}>
         <div>
-          {['All', 'Dairy', 'Beverages', 'Desserts'].map((category) => (
+          {["All", "Dairy", "Beverages", "Desserts"].map((category) => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              style={{
-                marginRight: "10px",
-                backgroundColor: selectedCategory === category ? "#00796B" : "#ccc",
-                color: selectedCategory === category ? "#fff" : "#000",
-                border: "none",
-                borderRadius: "6px",
-                padding: "8px 15px",
-                cursor: "pointer",
-              }}
+              style={btnTabStyle(selectedCategory === category)}
             >
               {category}
             </button>
@@ -93,30 +84,18 @@ function Products() {
             placeholder="Search products..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            style={{
-              padding: "8px 30px 8px 10px",
-              borderRadius: "6px",
-              border: "2px solid #00796B",
-              outline: "none",
-              width: "200px",
-            }}
+            style={searchBoxStyle}
           />
-          <FaSearch style={{ position: "absolute", right: "10px", top: "50%", transform: "translateY(-50%)" }} />
+          <FaSearch style={searchIconStyle} />
         </div>
       </div>
 
       {/* Product Grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "20px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "20px", padding: "10px" }}>
         {filteredProducts.map((product) => (
           <motion.div
             key={product.id}
-            style={{
-              border: "2px solid #00796B",
-              borderRadius: "12px",
-              padding: "20px",
-              textAlign: "center",
-              backgroundColor: "#f0f8ff"
-            }}
+            style={productCardStyle}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
@@ -144,13 +123,48 @@ function Products() {
   );
 }
 
+// Styles
 const btnStyle = {
   backgroundColor: "#00796B",
   color: "#fff",
   border: "none",
   borderRadius: "6px",
   padding: "8px 15px",
-  cursor: "pointer"
+  cursor: "pointer",
+};
+
+const btnTabStyle = (isActive) => ({
+  marginRight: "10px",
+  backgroundColor: isActive ? "#00796B" : "#ccc",
+  color: isActive ? "#fff" : "#000",
+  border: "none",
+  borderRadius: "6px",
+  padding: "8px 15px",
+  cursor: "pointer",
+});
+
+const searchBoxStyle = {
+  padding: "8px 30px 8px 10px",
+  borderRadius: "6px",
+  border: "2px solid #00796B",
+  outline: "none",
+  width: "200px",
+};
+
+const searchIconStyle = {
+  position: "absolute",
+  right: "10px",
+  top: "50%",
+  transform: "translateY(-50%)",
+  color: "#00796B",
+};
+
+const productCardStyle = {
+  border: "2px solid #00796B",
+  borderRadius: "12px",
+  padding: "20px",
+  textAlign: "center",
+  backgroundColor: "#f0f8ff",
 };
 
 export default Products;
