@@ -18,7 +18,7 @@ function Dashboard() {
   useEffect(() => {
     const savedUser = JSON.parse(localStorage.getItem("user"));
     if (savedUser) {
-      setUser(savedUser);
+      setUser({ ...user, ...savedUser });
     }
   }, []);
 
@@ -35,7 +35,6 @@ function Dashboard() {
 
   return (
     <div className="animate__animated animate__fadeIn" style={styles.dashboardContainer}>
-      {menuOpen && <div style={styles.overlay} onClick={() => setMenuOpen(false)}></div>}
       <div style={styles.dashboardBox} className="animate__animated animate__zoomIn">
         <div style={styles.hamburgerMenu}>
           <button onClick={() => setMenuOpen(!menuOpen)} style={styles.hamburgerBtn}>
@@ -54,7 +53,11 @@ function Dashboard() {
         </div>
         <h1 style={styles.dashboardTitle}>User Dashboard</h1>
         <div style={styles.userSection} className="animate__animated animate__fadeInUp">
-          <img src={user.profilePic || userImage} alt="Profile" style={styles.profilePic} />
+          <img
+            src={user.profilePic || userImage}
+            alt="Profile"
+            style={styles.profilePic}
+          />
           <h3 style={styles.userName}>{user.name}</h3>
           <p style={styles.userEmail}>{user.email}</p>
           <p style={styles.userContact}>Contact: {user.contact}</p>
@@ -79,14 +82,13 @@ function Dashboard() {
 }
 
 const styles = {
-  dashboardContainer: { display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", background: "#f4f4f4", padding: "20px" },
-  dashboardBox: { width: "80%", maxWidth: "900px", background: "white", padding: "30px", borderRadius: "12px", boxShadow: "0 5px 20px rgba(0, 0, 0, 0.2)", textAlign: "center", position: "relative" },
+  dashboardContainer: { display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", background: "#f0f2f5", padding: "20px" },
+  dashboardBox: { width: "80%", maxWidth: "900px", background: "#fff", padding: "30px", borderRadius: "12px", boxShadow: "0 5px 20px rgba(0, 0, 0, 0.2)", textAlign: "center", position: "relative" },
   hamburgerMenu: { position: "absolute", top: "15px", right: "15px", zIndex: "1001" },
   hamburgerBtn: { fontSize: "24px", background: "none", border: "none", cursor: "pointer", color: "#333" },
-  menuDropdown: { position: "absolute", top: "40px", right: "0", width: "160px", background: "white", borderRadius: "8px", boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)", overflow: "hidden", zIndex: "1002" },
+  menuDropdown: { position: "absolute", top: "40px", right: "0", width: "160px", background: "#fff", borderRadius: "8px", boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)", overflow: "hidden", zIndex: "1002" },
   menuItem: { width: "100%", padding: "12px", textAlign: "left", display: "flex", alignItems: "center", fontSize: "16px", border: "none", background: "none", cursor: "pointer" },
   menuIcon: { marginRight: "10px", fontSize: "18px" },
-  overlay: { position: "fixed", top: "0", left: "0", width: "100%", height: "100%", background: "rgba(0, 0, 0, 0.4)", zIndex: "1000" },
   dashboardTitle: { fontSize: "30px", fontWeight: "bold", color: "#333", marginBottom: "25px" },
   profilePic: { width: "120px", height: "120px", borderRadius: "50%", border: "4px solid #ddd", marginBottom: "10px" },
   userName: { fontSize: "22px", fontWeight: "bold", color: "#333" },
