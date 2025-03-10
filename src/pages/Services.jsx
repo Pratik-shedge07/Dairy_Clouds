@@ -5,31 +5,82 @@ import { motion } from "framer-motion";
 function Services() {
   const [stock, setStock] = useState(1000); // Updated initial stock
   const [searchTerm, setSearchTerm] = useState("");
-
-  const milkData = [
+  const [milkData, setMilkData] = useState([
     { day: "Mon", milkIn: 300, milkOut: 200 },
     { day: "Tue", milkIn: 250, milkOut: 180 },
     { day: "Wed", milkIn: 280, milkOut: 220 },
     { day: "Thu", milkIn: 260, milkOut: 210 },
     { day: "Fri", milkIn: 320, milkOut: 250 },
-  ];
+  ]);
 
-  const transactions = [
+  const [transactions, setTransactions] = useState([
     { receiptNo: "DMS1001", type: "Milk In", quantity: 300, date: "10 Mar 2025" },
     { receiptNo: "DMS1002", type: "Milk Out", quantity: 200, date: "10 Mar 2025" },
     { receiptNo: "DMS1003", type: "Milk In", quantity: 250, date: "11 Mar 2025" },
     { receiptNo: "DMS1004", type: "Milk Out", quantity: 180, date: "11 Mar 2025" },
     { receiptNo: "DMS1005", type: "Milk In", quantity: 280, date: "12 Mar 2025" },
-    { receiptNo: "DMS1006", type: "Milk Out", quantity: 220, date: "12 Mar 2025" },
-    { receiptNo: "DMS1007", type: "Milk In", quantity: 260, date: "13 Mar 2025" },
-    { receiptNo: "DMS1008", type: "Milk Out", quantity: 210, date: "13 Mar 2025" },
-    { receiptNo: "DMS1009", type: "Milk In", quantity: 320, date: "14 Mar 2025" },
-    { receiptNo: "DMS1010", type: "Milk Out", quantity: 250, date: "14 Mar 2025" },
-  ];
+  ]);
+
+  const [newTransaction, setNewTransaction] = useState({
+    type: "Milk In",
+    quantity: 0,
+    date: new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }),
+  });
 
   const filteredTransactions = transactions.filter((txn) =>
     txn.receiptNo.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewTransaction({ ...newTransaction, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Generate a new receipt number
+    const newReceiptNo = `DMS${transactions.length + 1001}`;
+
+    // Update transactions (keep only the last 5 entries)
+    const updatedTransactions = [
+      ...transactions,
+      {
+        receiptNo: newReceiptNo,
+        ...newTransaction,
+        quantity: parseInt(newTransaction.quantity),
+      },
+    ].slice(-5); // Keep only the last 5 entries
+    setTransactions(updatedTransactions);
+
+    // Update milkData (keep only the last 5 entries)
+    const day = new Date().toLocaleDateString("en-US", { weekday: "short" });
+    const updatedMilkData = milkData.map((data) => {
+      if (data.day === day) {
+        return {
+          ...data,
+          milkIn: newTransaction.type === "Milk In" ? data.milkIn + parseInt(newTransaction.quantity) : data.milkIn,
+          milkOut: newTransaction.type === "Milk Out" ? data.milkOut + parseInt(newTransaction.quantity) : data.milkOut,
+        };
+      }
+      return data;
+    });
+    setMilkData(updatedMilkData.slice(-5)); // Keep only the last 5 entries
+
+    // Update stock
+    setStock((prevStock) =>
+      newTransaction.type === "Milk In"
+        ? prevStock + parseInt(newTransaction.quantity)
+        : prevStock - parseInt(newTransaction.quantity)
+    );
+
+    // Reset form
+    setNewTransaction({
+      type: "Milk In",
+      quantity: 0,
+      date: new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }),
+    });
+  };
 
   const styles = {
     container: {
@@ -54,6 +105,48 @@ function Services() {
       marginBottom: "10px",
       borderRadius: "5px",
       border: "1px solid #ccc",
+    },
+    formInput: {
+      padding: "10px",
+      width: "100%",
+      marginBottom: "10px",
+      borderRadius: "5px",
+      border: "1px solid #ccc",
+    },
+    formButton: {
+      padding: "10px 20px",
+      backgroundColor: "#2E7D32",
+      color: "#fff",
+      border: "none",
+      borderRadius: "5px",
+      cursor: "pointer",
+      width: "100%",
+      fontSize: "16px",
+      fontWeight: "bold",
+    },
+    table: {
+      width: "100%",
+      borderCollapse: "collapse",
+      marginTop: "10px",
+    },
+    tableHeader: {
+      backgroundColor: "#2E7D32",
+      color: "#fff",
+      padding: "10px",
+      textAlign: "left",
+    },
+    tableRow: {
+      borderBottom: "1px solid #ddd",
+    },
+    tableCell: {
+      padding: "10px",
+      textAlign: "left",
+    },
+    noTransactions: {
+      textAlign: "center",
+      padding: "10px",
+      fontWeight: "bold",
+      color: "#777",
     },
   };
 
@@ -86,6 +179,41 @@ function Services() {
         </ResponsiveContainer>
       </motion.div>
 
+      {/* Add Milk In & Out Form */}
+      <motion.div style={styles.section} initial={{ y: 50 }} animate={{ y: 0 }} transition={{ duration: 0.5 }}>
+        <h2 style={{ fontSize: "20px", marginBottom: "10px" }}>Add Milk In/Out</h2>
+        <form onSubmit={handleSubmit}>
+          <select
+            name="type"
+            value={newTransaction.type}
+            onChange={handleInputChange}
+            style={styles.formInput}
+          >
+            <option value="Milk In">Milk In</option>
+            <option value="Milk Out">Milk Out</option>
+          </select>
+          <input
+            type="number"
+            name="quantity"
+            placeholder="Quantity (L)"
+            value={newTransaction.quantity}
+            onChange={handleInputChange}
+            style={styles.formInput}
+          />
+          <input
+            type="text"
+            name="date"
+            value={newTransaction.date}
+            onChange={handleInputChange}
+            style={styles.formInput}
+            disabled
+          />
+          <button type="submit" style={styles.formButton}>
+            Add Transaction
+          </button>
+        </form>
+      </motion.div>
+
       {/* Transaction Search & Table */}
       <motion.div style={styles.section} initial={{ y: 50 }} animate={{ y: 0 }} transition={{ duration: 0.5 }}>
         <h2 style={{ fontSize: "20px", marginBottom: "10px" }}>Recent Transactions</h2>
@@ -96,37 +224,36 @@ function Services() {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "10px" }}>
+        <table style={styles.table}>
           <thead>
             <tr>
-              <th style={{ border: "1px solid #ddd", padding: "10px", backgroundColor: "#eee" }}>Receipt No.</th>
-              <th style={{ border: "1px solid #ddd", padding: "10px", backgroundColor: "#eee" }}>Type</th>
-              <th style={{ border: "1px solid #ddd", padding: "10px", backgroundColor: "#eee" }}>Quantity (L)</th>
-              <th style={{ border: "1px solid #ddd", padding: "10px", backgroundColor: "#eee" }}>Date</th>
+              <th style={styles.tableHeader}>Receipt No.</th>
+              <th style={styles.tableHeader}>Type</th>
+              <th style={styles.tableHeader}>Quantity (L)</th>
+              <th style={styles.tableHeader}>Date</th>
             </tr>
           </thead>
           <tbody>
             {filteredTransactions.length > 0 ? (
               filteredTransactions.map((txn) => (
-                <tr key={txn.receiptNo}>
-                  <td style={{ border: "1px solid #ddd", padding: "10px" }}>{txn.receiptNo}</td>
+                <tr key={txn.receiptNo} style={styles.tableRow}>
+                  <td style={styles.tableCell}>{txn.receiptNo}</td>
                   <td
                     style={{
-                      border: "1px solid #ddd",
-                      padding: "10px",
+                      ...styles.tableCell,
                       fontWeight: "bold",
                       color: txn.type === "Milk In" ? "#2E7D32" : "#D32F2F",
                     }}
                   >
                     {txn.type}
                   </td>
-                  <td style={{ border: "1px solid #ddd", padding: "10px" }}>{txn.quantity}</td>
-                  <td style={{ border: "1px solid #ddd", padding: "10px" }}>{txn.date}</td>
+                  <td style={styles.tableCell}>{txn.quantity}</td>
+                  <td style={styles.tableCell}>{txn.date}</td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="4" style={{ textAlign: "center", padding: "10px", fontWeight: "bold" }}>
+                <td colSpan="4" style={styles.noTransactions}>
                   No transactions found
                 </td>
               </tr>
