@@ -16,7 +16,6 @@ function Navbar() {
         <Link to="/about" style={styles.link}>About</Link>
         <Link to="/contact" style={styles.link}>Contact Us</Link>
         <Link to="/login" style={styles.link}>Login</Link>
-        
       </div>
     </nav>
   );
@@ -24,18 +23,19 @@ function Navbar() {
 
 const styles = {
   navbar: {
-    width: "96%",
+    width: "100%",
     height: "70px",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
     padding: "0 60px",
-    background: "#00796B", // Teal Green
+    background: "#00796B",
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
-    position: "fixed",
+    position: "relative",
     top: 0,
     left: 0,
     zIndex: 1000,
+    margin:"0",
   },
   logoContainer: {
     display: "flex",
@@ -65,13 +65,13 @@ const styles = {
     transition: "background 0.3s ease-in-out",
   },
   linkHover: {
-    background: "#B2DFDB", // Soft Aqua
+    background: "#B2DFDB",
     color: "#00796B",
   },
   button: {
     textDecoration: "none",
     color: "#FFFFFF",
-    background: "#009688", // Vibrant Teal
+    background: "#009688",
     padding: "8px 15px",
     borderRadius: "6px",
     fontWeight: "bold",

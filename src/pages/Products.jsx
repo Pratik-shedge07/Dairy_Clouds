@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { motion } from "framer-motion";
-import { FaShoppingCart, FaMoneyBillWave } from "react-icons/fa";
+import { FaShoppingCart, FaMoneyBillWave, FaSearch } from "react-icons/fa";
 
 function Products() {
   const [cart, setCart] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -43,6 +45,11 @@ function Products() {
       { id: 15, name: "Buttermilk", price: "₹40", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlbpAaQOlwd8hGpKxzwYpuM9NnzA3mwK4alQ&s", category: "Dairy" },
     ];
 
+  const filteredProducts = allProducts.filter((product) =>
+    (selectedCategory === "All" || product.category === selectedCategory) &&
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const handleAddToCart = (product) => {
     setCart((prevCart) => [...prevCart, product]);
     toast.success(`${product.name} added to cart!`);
@@ -57,8 +64,50 @@ function Products() {
     <div style={{ padding: "20px" }}>
       <Toaster />
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "20px" }}>
-        {allProducts.map((product) => (
+      {/* Search Bar */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+        <div>
+          {['All', 'Dairy', 'Beverages', 'Desserts'].map((category) => (
+            <button
+              key={category}
+              onClick={() => setSelectedCategory(category)}
+              style={{
+                marginRight: "10px",
+                backgroundColor: selectedCategory === category ? "#00796B" : "#ccc",
+                color: selectedCategory === category ? "#fff" : "#000",
+                border: "none",
+                borderRadius: "6px",
+                padding: "8px 15px",
+                cursor: "pointer",
+              }}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+
+        {/* Search Box */}
+        <div style={{ position: "relative" }}>
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{
+              padding: "8px 30px 8px 10px",
+              borderRadius: "6px",
+              border: "2px solid #00796B",
+              outline: "none",
+              width: "200px",
+            }}
+          />
+          <FaSearch style={{ position: "absolute", right: "10px", top: "50%", transform: "translateY(-50%)" }} />
+        </div>
+      </div>
+
+      {/* Product Grid */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "20px" }}>
+        {filteredProducts.map((product) => (
           <motion.div
             key={product.id}
             style={{
@@ -75,10 +124,10 @@ function Products() {
             <img
               src={product.image}
               alt={product.name}
-              style={{ width: "100%", height: "200px", objectFit: "cover", borderRadius: "10px" }}
+              style={{ width: "100%", height: "250px", objectFit: "cover", borderRadius: "10px" }}
             />
             <h3>{product.name}</h3>
-            <p>₹{product.price}</p>
+            <p>{product.price}</p>
 
             <div style={{ display: "flex", gap: "10px", justifyContent: "center", marginTop: "10px" }}>
               <button onClick={() => handleAddToCart(product)} style={btnStyle}>
@@ -101,7 +150,7 @@ const btnStyle = {
   border: "none",
   borderRadius: "6px",
   padding: "8px 15px",
-  cursor: "pointer",
+  cursor: "pointer"
 };
 
 export default Products;

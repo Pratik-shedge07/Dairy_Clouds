@@ -192,7 +192,7 @@ const styles = {
     fontWeight: "bold",
     border: "none",
     borderRadius: "5px",
-    backgroundColor: "#FF5722", // Primary color
+    backgroundColor: "#FF5722",
     color: "white",
     cursor: "pointer",
     transition: "0.3s ease",
@@ -207,8 +207,8 @@ const styles = {
     fontWeight: "bold",
     border: "2px solid #FF5722",
     borderRadius: "5px",
-    backgroundColor: "transparent",
-    color: "#FF5722",
+    backgroundColor: "#FF5722",
+    color: "white",
     cursor: "pointer",
     transition: "0.3s ease",
     "@media (max-width: 480px)": {
