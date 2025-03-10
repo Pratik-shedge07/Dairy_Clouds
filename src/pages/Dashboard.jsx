@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaBars, FaSignOutAlt, FaShoppingCart, FaBoxOpen, FaPencilAlt, FaTimes } from "react-icons/fa";
-import "animate.css";
+import { FaBars, FaSignOutAlt, FaShoppingCart, FaBoxOpen, FaPencilAlt, FaTimes, FaPlus, FaMinus, FaTrash } from "react-icons/fa";
+
 import userImage from "../icons/man.png";
 
 function Dashboard() {
@@ -18,6 +18,10 @@ function Dashboard() {
 
   const [cart, setCart] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [products] = useState([
+    { id: 1, name: "Butter", price: 150, quantity: 1, image: "https://via.placeholder.com/100" },
+    { id: 2, name: "Milk", price: 40, quantity: 1, image: "https://via.placeholder.com/100" },
+  ]);
 
   const navigate = useNavigate();
 
@@ -39,6 +43,8 @@ function Dashboard() {
       contact: "Not Provided",
       profilePic: userImage,
     });
+    setCart([]);
+    setOrders([]);
     navigate("/login");
   };
 
@@ -54,93 +60,356 @@ function Dashboard() {
     }
   };
 
+  const increaseQuantity = (index, source) => {
+    const updatedSource = [...source];
+    updatedSource[index].quantity++;
+    if (source === cart) {
+      setCart(updatedSource);
+      localStorage.setItem("cart", JSON.stringify(updatedSource));
+    }
+  };
+
+  const decreaseQuantity = (index, source) => {
+    const updatedSource = [...source];
+    if (updatedSource[index].quantity > 1) {
+      updatedSource[index].quantity--;
+    } else {
+      updatedSource.splice(index, 1);
+    }
+    if (source === cart) {
+      setCart(updatedSource);
+      localStorage.setItem("cart", JSON.stringify(updatedSource));
+    }
+  };
+
+  const deleteProduct = (index, source) => {
+    const updatedSource = [...source];
+    updatedSource.splice(index, 1);
+    if (source === cart) {
+      setCart(updatedSource);
+      localStorage.setItem("cart", JSON.stringify(updatedSource));
+    } else {
+      setOrders(updatedSource);
+      localStorage.setItem("orders", JSON.stringify(updatedSource));
+    }
+  };
+
+  const calculateTotal = (items) => {
+    const totalAmount = items.reduce((total, item) => total + item.price * item.quantity, 0);
+    const deliveryCharge = 40; // Delivery charge
+    return totalAmount + deliveryCharge;
+  };
+
+  const handleAddToCart = (product) => {
+    const existingProductIndex = cart.findIndex((item) => item.id === product.id);
+    if (existingProductIndex >= 0) {
+      const updatedCart = [...cart];
+      updatedCart[existingProductIndex].quantity++;
+      setCart(updatedCart);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+    } else {
+      setCart([...cart, product]);
+      localStorage.setItem("cart", JSON.stringify([...cart, product]));
+    }
+  };
+
   return (
-    <div className="animate__animated animate__fadeIn" style={styles.dashboardContainer}>
-      <div style={styles.dashboardBox} className="animate__animated animate__zoomIn">
-        <div style={styles.hamburgerMenuTopRight}>
-          <button onClick={() => setMenuOpen(!menuOpen)} style={styles.hamburgerBtn}>
+    <div className="dashboard-container">
+      <div className="dashboard-box">
+        {/* Hamburger Menu */}
+        <div className="hamburger-menu">
+          <button onClick={() => setMenuOpen(!menuOpen)} className="hamburger-btn">
             <FaBars />
           </button>
           {menuOpen && (
-            <div style={styles.menuDropdown}>
-              <button style={styles.logoutBtn} onClick={handleLogout}>
-                <FaSignOutAlt style={styles.menuIcon} /> Logout
+            <div className="menu-dropdown">
+              <button className="logout-btn" onClick={handleLogout}>
+                <FaSignOutAlt /> Logout
               </button>
             </div>
           )}
         </div>
 
-        <div style={styles.userSection} className="animate__animated animate__fadeInUp">
-          <div style={styles.profileWrapper}>
-            <img src={user.profilePic || userImage} alt="Profile" style={styles.profilePic} />
-            <label htmlFor="imageUpload" style={styles.editIcon}>
+        <div className="user-section">
+          <div className="profile-wrapper">
+            <img src={userImage || user.profilePic} alt="Profile" className="profile-pic" />
+            <label htmlFor="imageUpload" className="edit-icon">
               <FaPencilAlt />
             </label>
-            <input
-              type="file"
-              id="imageUpload"
-              accept="image/*"
-              style={{ display: "none" }}
-              onChange={handleImageUpload}
-            />
+            <input type="file" id="imageUpload" accept="image/*" onChange={handleImageUpload} style={{ display: "none" }} />
           </div>
 
-          <h3 style={styles.userName}>{user.name}</h3>
-          <p style={styles.userEmail}>{user.email}</p>
-          <p style={styles.userContact}>Contact: {user.contact}</p>
+          <h3 className="user-name">{user.name}</h3>
+          <p className="user-email">{user.email}</p>
+          <p className="user-contact">Contact: {user.contact}</p>
         </div>
 
-        <div style={styles.dashboardSections}>
-          <div style={styles.dashboardCard}>
-            <FaBoxOpen style={styles.cardIconBig} />
-            <h2 style={styles.cardTitle}>Your Orders</h2>
-            <p style={styles.cardText}>{orders.length} items in your orders.</p>
-            <button style={styles.improvedBtn} onClick={() => setShowOrders(true)}>View Orders</button>
+        <div className="dashboard-sections">
+          <div className="dashboard-card">
+            <FaBoxOpen className="card-icon-big" />
+            <h2>Your Orders</h2>
+            <button className="improved-btn" onClick={() => setShowOrders(true)}>View Orders</button>
           </div>
-          <div style={styles.dashboardCard}>
-            <FaShoppingCart style={styles.cardIconBig} />
-            <h2 style={styles.cardTitle}>Your Cart</h2>
-            <p style={styles.cardText}>{cart.length} items in your cart.</p>
-            <button style={styles.improvedBtn} onClick={() => setShowCart(true)}>View Cart</button>
+          <div className="dashboard-card">
+            <FaShoppingCart className="card-icon-big" />
+            <h2>Your Cart</h2>
+            <button className="improved-btn" onClick={() => setShowCart(true)}>View Cart</button>
           </div>
         </div>
 
+        {/* Cart Popup */}
         {showCart && (
-          <div style={styles.popupBox}>
-            <button style={styles.closeBtn} onClick={() => setShowCart(false)}><FaTimes /></button>
-            <h3>Your Cart</h3>
-            {cart.length ? cart.map((item) => <p key={item.id}>{item.name}</p>) : <p>No items in cart.</p>}
+          <div className="popup-box">
+            <div className="popup-content">
+              <button className="close-btn" onClick={() => setShowCart(false)}><FaTimes /></button>
+              <h3>Your Cart</h3>
+              {cart.length ? (
+                cart.map((item, index) => (
+                  <div key={item.id} className="cart-item">
+                    <img src={item.image} alt={item.name} className="cart-item-img" />
+                    <p>{item.name} - ₹{item.price}</p>
+                    <div className="quantity-controls">
+                      <FaMinus onClick={() => decreaseQuantity(index, cart)} />
+                      <span>{item.quantity}</span>
+                      <FaPlus onClick={() => increaseQuantity(index, cart)} />
+                    </div>
+                    <FaTrash onClick={() => deleteProduct(index, cart)} className="delete-icon" />
+                  </div>
+                ))
+              ) : (
+                <p>No items in cart.</p>
+              )}
+              <h3>Total Bill: ₹{calculateTotal(cart)}</h3>
+            </div>
           </div>
         )}
 
+        {/* Orders Popup */}
         {showOrders && (
-          <div style={styles.popupBox}>
-            <button style={styles.closeBtn} onClick={() => setShowOrders(false)}><FaTimes /></button>
-            <h3>Your Orders</h3>
-            {orders.length ? orders.map((item) => <p key={item.id}>{item.name}</p>) : <p>No orders yet.</p>}
+          <div className="popup-box">
+            <div className="popup-content">
+              <button className="close-btn" onClick={() => setShowOrders(false)}><FaTimes /></button>
+              <h3>Your Orders</h3>
+              {orders.length ? (
+                orders.map((item, index) => (
+                  <div key={item.id} className="cart-item">
+                    <img src={item.image} alt={item.name} className="cart-item-img" />
+                    <p>{item.name} - ₹{item.price}</p>
+                    <span>Quantity: {item.quantity}</span>
+                    <h4>Total: ₹{item.price * item.quantity}</h4>
+                    <FaTrash onClick={() => deleteProduct(index, orders)} className="delete-icon" />
+                  </div>
+                ))
+              ) : (
+                <p>No orders placed yet.</p>
+              )}
+              <h3>Total Bill: ₹{calculateTotal(orders)}</h3>
+            </div>
           </div>
         )}
       </div>
+
+      <style jsx>{`
+        .dashboard-container {
+          font-family: Arial, sans-serif;
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          padding: 40px 20px 20px 20px;
+          background-color: #f0f0f0;
+          margin-top: 100px; /* To prevent overlap with navbar */
+        }
+
+        .dashboard-box {
+          width: 100%;
+          max-width: 1200px;
+          background-color: white;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          border-radius: 8px;
+          padding: 40px;
+          position: relative;
+        }
+
+        .hamburger-menu {
+          position: absolute;
+          top: 20px;
+          right: 20px;
+        }
+
+        .hamburger-btn {
+          background: none;
+          border: none;
+          font-size: 24px;
+          cursor: pointer;
+        }
+
+        .menu-dropdown {
+          position: absolute;
+          top: 40px;
+          right: 10px;
+          background-color: #fff;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          border-radius: 8px;
+        }
+
+        .logout-btn {
+          display: block;
+          padding: 10px;
+          background-color: #f44336;
+          color: white;
+          border: none;
+          text-align: center;
+          border-radius: 8px;
+          cursor: pointer;
+        }
+
+        .logout-btn:hover {
+          background-color: #e53935;
+        }
+
+        .user-section {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-bottom: 30px;
+        }
+
+        .profile-wrapper {
+          position: relative;
+          margin-bottom: 15px;
+        }
+
+        .profile-pic {
+          width: 120px;
+          height: 120px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+
+        .edit-icon {
+          position: absolute;
+          bottom: 5px;
+          right: 5px;
+          cursor: pointer;
+          background-color: #fff;
+          border-radius: 50%;
+          padding: 5px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-name {
+          font-size: 22px;
+          font-weight: bold;
+          margin: 15px 0;
+        }
+
+        .user-email,
+        .user-contact {
+          color: #555;
+          font-size: 16px;
+        }
+
+        .dashboard-sections {
+          display: flex;
+          justify-content: space-between;
+          gap: 20px;
+        }
+
+        .dashboard-card {
+          background-color: #f7f7f7;
+          padding: 30px;
+          border-radius: 8px;
+          text-align: center;
+          width: 45%;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-icon-big {
+          font-size: 40px;
+          color: #007bff;
+        }
+
+        .improved-btn {
+          margin-top: 20px;
+          padding: 12px;
+          background-color: #007bff;
+          color: white;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+        }
+
+        .improved-btn:hover {
+          background-color: #0056b3;
+        }
+
+        .popup-box {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .popup-content {
+          background: white;
+          padding: 30px;
+          border-radius: 8px;
+          width: 80%;
+          max-width: 600px;
+          position: relative;
+        }
+
+        .close-btn {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          background: none;
+          border: none;
+          color: black;
+          font-size: 24px;
+          cursor: pointer;
+        }
+
+        .cart-item {
+          display: flex;
+          align-items: center;
+          margin-bottom: 20px;
+        }
+
+        .cart-item-img {
+          width: 60px;
+          height: 60px;
+          object-fit: cover;
+          margin-right: 15px;
+        }
+
+        .quantity-controls {
+          display: flex;
+          align-items: center;
+          margin-left: 15px;
+        }
+
+        .quantity-controls span {
+          margin: 0 10px;
+        }
+
+        .delete-icon {
+          cursor: pointer;
+          color: red;
+          margin-left: 15px;
+        }
+
+        .delete-icon:hover {
+          color: darkred;
+        }
+      `}</style>
     </div>
   );
 }
-const styles = {
-  dashboardContainer: { display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", background: "#eef2f3", padding: "20px" },
-  dashboardBox: { width: "80%", maxWidth: "900px", background: "#fff", padding: "30px", borderRadius: "20px", boxShadow: "0 5px 20px rgba(0, 0, 0, 0.3)", textAlign: "center", position: "relative" },
-  hamburgerMenuTopRight: { position: "absolute", top: "10px", right: "15px", zIndex: "1001" },
-  profilePic: { width: "80px", height: "80px", borderRadius: "50%", border: "3px solid #FF5722", marginBottom: "10px" },
-  dashboardSections: { display: "flex", gap: "20px", 
-justifyContent: "center", marginTop: "20px" },
-  popupBox: { position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "200px", height: "200px", background: "#fff", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)", borderRadius: "12px", padding: "10px", overflowY: "auto" },
-  closeBtn: { background: "#D32F2F", color: "#fff", border: "none", borderRadius: "50%", width: "24px", height: "24px", cursor: "pointer", position: "absolute", top: "5px", right: "5px" },
-  
-  improvedBtn: { background: "#4CAF50", color: "#fff", padding: "10px 20px", borderRadius: "8px", border: "none", cursor: "pointer", transition: "background 0.3s", fontWeight: "bold" },
-  improvedBtnHover: { background: "#388E3C" },
-  
-  cardIconBig: { fontSize: "60px", color: "#2196F3", marginBottom: "10px" },
-
-  logoutBtn: { background: "#FF5722", color: "#fff", padding: "10px 20px", marginTop:"10px", borderRadius: "8px", border: "none", cursor: "pointer", transition: "background 0.3s", display: "flex", alignItems: "center", gap: "8px", fontWeight: "bold", width: "100%", textAlign: "left" },
-  menuIcon: { fontSize: "18px" }
-};
 
 export default Dashboard;
