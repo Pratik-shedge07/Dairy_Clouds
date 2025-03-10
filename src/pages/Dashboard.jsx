@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaBars, FaUser, FaSignOutAlt, FaShoppingCart, FaBoxOpen } from "react-icons/fa";
+import { FaBars, FaSignOutAlt, FaShoppingCart, FaBoxOpen, FaPencilAlt } from "react-icons/fa";
 import "animate.css";
 import userImage from "../icons/man.png";
 
@@ -18,7 +18,7 @@ function Dashboard() {
   useEffect(() => {
     const savedUser = JSON.parse(localStorage.getItem("user"));
     if (savedUser) {
-      setUser({ ...user, ...savedUser });
+      setUser(savedUser);
     }
   }, []);
 
@@ -33,43 +33,64 @@ function Dashboard() {
     navigate("/login");
   };
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setUser({ ...user, profilePic: e.target.result });
+        localStorage.setItem("user", JSON.stringify({ ...user, profilePic: e.target.result }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="animate__animated animate__fadeIn" style={styles.dashboardContainer}>
       <div style={styles.dashboardBox} className="animate__animated animate__zoomIn">
-        <div style={styles.hamburgerMenu}>
+        {/* Hamburger Menu - Now at the Top Right Corner */}
+        <div style={styles.hamburgerMenuTopRight}>
           <button onClick={() => setMenuOpen(!menuOpen)} style={styles.hamburgerBtn}>
             <FaBars />
           </button>
           {menuOpen && (
             <div style={styles.menuDropdown}>
-              <button style={styles.menuItem}>
-                <FaUser style={styles.menuIcon} /> Profile
-              </button>
               <button style={styles.menuItem} onClick={handleLogout}>
                 <FaSignOutAlt style={styles.menuIcon} /> Logout
               </button>
             </div>
           )}
         </div>
+
         <h1 style={styles.dashboardTitle}>User Dashboard</h1>
         <div style={styles.userSection} className="animate__animated animate__fadeInUp">
-          <img
-            src={user.profilePic || userImage}
-            alt="Profile"
-            style={styles.profilePic}
-          />
+          <div style={styles.profileWrapper}>
+            <img src={userImage} alt="Profile" style={styles.profilePic} />
+            <label htmlFor="imageUpload" style={styles.editIcon}>
+              <FaPencilAlt />
+            </label>
+            <input
+              type="file"
+              id="imageUpload"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={handleImageUpload}
+            />
+          </div>
+
           <h3 style={styles.userName}>{user.name}</h3>
           <p style={styles.userEmail}>{user.email}</p>
           <p style={styles.userContact}>Contact: {user.contact}</p>
         </div>
+
         <div style={styles.dashboardSections}>
-          <div style={styles.dashboardCard} className="animate__animated animate__bounceInLeft">
+          <div style={styles.dashboardCard}>
             <FaBoxOpen style={styles.cardIcon} />
             <h2 style={styles.cardTitle}>Your Orders</h2>
             <p style={styles.cardText}>Track your recent orders and manage purchases.</p>
             <button style={styles.cardBtn}>View Orders</button>
           </div>
-          <div style={styles.dashboardCard} className="animate__animated animate__bounceInRight">
+          <div style={styles.dashboardCard}>
             <FaShoppingCart style={styles.cardIcon} />
             <h2 style={styles.cardTitle}>Your Cart</h2>
             <p style={styles.cardText}>Review items in your cart before checkout.</p>
@@ -82,15 +103,14 @@ function Dashboard() {
 }
 
 const styles = {
-  dashboardContainer: { display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", background: "#f0f2f5", padding: "20px" },
-  dashboardBox: { width: "80%", maxWidth: "900px", background: "#fff", padding: "30px", borderRadius: "12px", boxShadow: "0 5px 20px rgba(0, 0, 0, 0.2)", textAlign: "center", position: "relative" },
-  hamburgerMenu: { position: "absolute", top: "15px", right: "15px", zIndex: "1001" },
+  dashboardContainer: { display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", background: "#f4f4f4", padding: "20px" },
+  dashboardBox: { width: "80%", maxWidth: "900px", background: "white", padding: "30px", borderRadius: "12px", boxShadow: "0 5px 20px rgba(0, 0, 0, 0.2)", textAlign: "center", position: "relative" },
+  hamburgerMenuTopRight: { position: "absolute", top: "10px", right: "15px", zIndex: "1001" },
   hamburgerBtn: { fontSize: "24px", background: "none", border: "none", cursor: "pointer", color: "#333" },
-  menuDropdown: { position: "absolute", top: "40px", right: "0", width: "160px", background: "#fff", borderRadius: "8px", boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)", overflow: "hidden", zIndex: "1002" },
-  menuItem: { width: "100%", padding: "12px", textAlign: "left", display: "flex", alignItems: "center", fontSize: "16px", border: "none", background: "none", cursor: "pointer" },
-  menuIcon: { marginRight: "10px", fontSize: "18px" },
-  dashboardTitle: { fontSize: "30px", fontWeight: "bold", color: "#333", marginBottom: "25px" },
+  menuDropdown: { position: "absolute", top: "40px", right: "0", width: "160px", background: "white", borderRadius: "8px", boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)", overflow: "hidden", zIndex: "1002" },
+  profileWrapper: { position: "relative", display: "inline-block" },
   profilePic: { width: "120px", height: "120px", borderRadius: "50%", border: "4px solid #ddd", marginBottom: "10px" },
+  editIcon: { position: "absolute", bottom: "0", right: "0", background: "#FF5722", color: "white", borderRadius: "50%", width: "30px", height: "30px", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer", boxShadow: "0 2px 5px rgba(0, 0, 0, 0.3)" },
   userName: { fontSize: "22px", fontWeight: "bold", color: "#333" },
   userEmail: { fontSize: "16px", color: "#666" },
   userContact: { fontSize: "16px", color: "#666" },
