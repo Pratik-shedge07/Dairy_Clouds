@@ -31,7 +31,7 @@ const styles = {
     padding: "0 60px",
     background: "#00796B",
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
-    position: "relative",
+    position: "fixed",
     top: 0,
     left: 0,
     zIndex: 1000,
