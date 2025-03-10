@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaShoppingCart, FaSearch } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast";
+import { motion } from "framer-motion";
 
 function Products() {
   const allProducts = [
@@ -67,32 +68,38 @@ function Products() {
       </div>
 
       <div style={styles.productsContainer}>
-        {filteredProducts.map((product) => (
-          <div key={product.id} style={styles.card}>
+        {filteredProducts.map((product, index) => (
+          <motion.div
+            key={product.id}
+            style={styles.card}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+          >
             <div style={styles.imageContainer}>
               <img src={product.image} alt={product.name} style={styles.productImage} />
             </div>
             <h3 style={styles.productName}>{product.name}</h3>
             <p style={styles.productPrice}>{product.price}</p>
             <div style={styles.buttonContainer}>
-              <button
+              <motion.button
                 style={styles.addToCart}
                 onClick={() => handleAddToCart(product.name)}
-                onMouseEnter={(e) => (e.target.style.backgroundColor = "#005f56")}
-                onMouseLeave={(e) => (e.target.style.backgroundColor = "#00796B")}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
                 <FaShoppingCart style={styles.cartIcon} /> Add to Cart
-              </button>
-              <button
+              </motion.button>
+              <motion.button
                 style={styles.buyNow}
                 onClick={() => handleBuyNow(product.name)}
-                onMouseEnter={(e) => (e.target.style.backgroundColor = "#e64a19")}
-                onMouseLeave={(e) => (e.target.style.backgroundColor = "#FF5722")}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
                 Buy Now
-              </button>
+              </motion.button>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

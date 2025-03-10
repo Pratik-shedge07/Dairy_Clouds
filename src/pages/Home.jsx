@@ -131,9 +131,10 @@ const styles = {
   homeContainer: {
     width: "100%",
     height: "auto",
+    paddingTop: "80px", // Adjust this value to match the height of your navigation bar
   },
   heroSection: {
-    height: "100vh",
+    height: "calc(100vh - 80px)", // Adjust height to account for the navigation bar
     backgroundSize: "cover",
     backgroundPosition: "center",
     display: "flex",
@@ -304,7 +305,7 @@ const styles = {
   },
   featureDescription: {
     fontSize: "16px",
-    color: "#666", // Medium gray for descriptions
+    color: "#666", 
     lineHeight: "1.6",
     "@media (max-width: 480px)": {
       fontSize: "14px",
