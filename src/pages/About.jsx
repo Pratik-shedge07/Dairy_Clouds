@@ -10,9 +10,9 @@ function About() {
   return (
     <div style={styles.container} className={`page-fade-in ${animate ? "active" : ""}`}>
       <div style={styles.content}>
-        <h2 style={styles.heading} className={`fade-in ${animate ? "active" : ""}`}>About Dairy Cloud</h2>
+        <h2 style={styles.heading} className={`fade-in ${animate ? "active" : ""}`}>About Dairy Cloud'z</h2>
         <p style={styles.description} className={`fade-in ${animate ? "active" : ""}`}>
-          Dairy Cloud is a modern platform for managing dairy business operations. 
+          Dairy Cloud'z is a modern platform for managing dairy business operations. 
           From milk tracking to sales analytics, we provide an efficient solution to streamline your dairy management.
         </p>
 

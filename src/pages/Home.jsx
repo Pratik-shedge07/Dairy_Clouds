@@ -40,7 +40,7 @@ function Home() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
           >
-            Welcome to Dairy Cloud
+            Welcome to Dairy Cloud'z
           </motion.h1>
           <motion.p
             style={styles.heroSubtitle}
@@ -79,7 +79,7 @@ function Home() {
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
         >
-          About Dairy Cloud
+          About Dairy Cloud'z
         </motion.h2>
         <motion.p
           style={styles.sectionDescription}
@@ -87,7 +87,7 @@ function Home() {
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.8 }}
         >
-          Dairy Cloud is a powerful platform designed to streamline your dairy business operations. From tracking milk production to managing sales and inventory, we provide the tools you need to succeed.
+          Dairy Cloud'z is a powerful platform designed to streamline your dairy business operations. From tracking milk production to managing sales and inventory, we provide the tools you need to succeed.
         </motion.p>
       </div>
 

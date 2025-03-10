@@ -6,7 +6,7 @@ function Navbar() {
     <nav style={styles.navbar}>
       <div style={styles.logoContainer}>
         <img src="dairylogo.png" alt="Dairy Cloud Logo" style={styles.logoImage} />
-        <h1 style={styles.logo}>Dairy Clouds</h1>
+        <h1 style={styles.logo}>Dairy Cloud'z</h1>
       </div>
       <div style={styles.links}>
         <Link to="/" style={styles.link}>Home</Link>

@@ -11,7 +11,7 @@ function Footer() {
         <div style={styles.section}>
           <h3>Contact Us</h3>
           <p>Phone: +91 7412589630</p>
-          <p>Email: dairyclouds79@gmail.com</p>
+          <p>Email: dairycloudz79@gmail.com</p>
           <p>Address: Pune, Maharashtra</p>
         </div>
 
