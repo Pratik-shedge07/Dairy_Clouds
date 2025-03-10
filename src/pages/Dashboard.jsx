@@ -23,7 +23,13 @@ function Dashboard() {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
+    localStorage.clear(); // Clear all stored data
+    setUser({
+      name: "Guest User",
+      email: "guest@example.com",
+      contact: "Not Provided",
+      profilePic: userImage,
+    });
     navigate("/login");
   };
 
