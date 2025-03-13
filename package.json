@@ -9,6 +9,7 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@react-google-maps/api": "^2.20.6",
     "@react-oauth/google": "^0.12.1",
     "@shadcn/ui": "^0.0.4",
     "animate.css": "^4.1.1",
