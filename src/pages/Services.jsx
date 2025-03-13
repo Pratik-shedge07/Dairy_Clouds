@@ -53,6 +53,12 @@ function Services() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Validate quantity input
+    if (newTransaction.quantity <= 0) {
+      alert("Quantity must be a positive number.");
+      return;
+    }
+
     // Generate a new receipt number
     const newReceiptNo = `DMS${transactions.length + 1001}`;
 
@@ -67,19 +73,38 @@ function Services() {
     ].slice(-5); // Keep only the last 5 entries
     setTransactions(updatedTransactions);
 
-    // Update milkData (keep only the last 5 entries)
+    // Update milkData
     const day = new Date().toLocaleDateString("en-US", { weekday: "short" });
-    const updatedMilkData = milkData.map((data) => {
-      if (data.day === day) {
-        return {
-          ...data,
-          milkIn: newTransaction.type === "Milk In" ? data.milkIn + parseInt(newTransaction.quantity) : data.milkIn,
-          milkOut: newTransaction.type === "Milk Out" ? data.milkOut + parseInt(newTransaction.quantity) : data.milkOut,
-        };
-      }
-      return data;
-    });
-    setMilkData(updatedMilkData.slice(-5)); // Keep only the last 5 entries
+    const existingDayData = milkData.find((data) => data.day === day);
+
+    if (existingDayData) {
+      const updatedMilkData = milkData.map((data) => {
+        if (data.day === day) {
+          return {
+            ...data,
+            milkIn:
+              newTransaction.type === "Milk In"
+                ? data.milkIn + parseInt(newTransaction.quantity)
+                : data.milkIn,
+            milkOut:
+              newTransaction.type === "Milk Out"
+                ? data.milkOut + parseInt(newTransaction.quantity)
+                : data.milkOut,
+          };
+        }
+        return data;
+      });
+      setMilkData(updatedMilkData);
+    } else {
+      setMilkData([
+        ...milkData,
+        {
+          day,
+          milkIn: newTransaction.type === "Milk In" ? parseInt(newTransaction.quantity) : 0,
+          milkOut: newTransaction.type === "Milk Out" ? parseInt(newTransaction.quantity) : 0,
+        },
+      ]);
+    }
 
     // Reset form
     setNewTransaction({
@@ -90,12 +115,43 @@ function Services() {
   };
 
   const handleDeleteTransaction = (receiptNo) => {
-    const updatedTransactions = transactions.filter(txn => txn.receiptNo !== receiptNo);
+    const transactionToDelete = transactions.find((txn) => txn.receiptNo === receiptNo);
+    if (!transactionToDelete) return;
+
+    // Update milkData
+    const day = new Date(transactionToDelete.date).toLocaleDateString("en-US", { weekday: "short" });
+    const updatedMilkData = milkData.map((data) => {
+      if (data.day === day) {
+        return {
+          ...data,
+          milkIn:
+            transactionToDelete.type === "Milk In"
+              ? data.milkIn - transactionToDelete.quantity
+              : data.milkIn,
+          milkOut:
+            transactionToDelete.type === "Milk Out"
+              ? data.milkOut - transactionToDelete.quantity
+              : data.milkOut,
+        };
+      }
+      return data;
+    });
+    setMilkData(updatedMilkData);
+
+    // Update transactions
+    const updatedTransactions = transactions.filter((txn) => txn.receiptNo !== receiptNo);
     setTransactions(updatedTransactions);
   };
 
   const handleRemoveAllTransactions = () => {
     setTransactions([]);
+    setMilkData([
+      { day: "Mon", milkIn: 0, milkOut: 0 },
+      { day: "Tue", milkIn: 0, milkOut: 0 },
+      { day: "Wed", milkIn: 0, milkOut: 0 },
+      { day: "Thu", milkIn: 0, milkOut: 0 },
+      { day: "Fri", milkIn: 0, milkOut: 0 },
+    ]);
   };
 
   const styles = {
@@ -232,6 +288,8 @@ function Services() {
             value={newTransaction.quantity}
             onChange={handleInputChange}
             style={styles.formInput}
+            min="1"
+            required
           />
           <input
             type="text"
