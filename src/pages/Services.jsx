@@ -3,7 +3,6 @@ import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContai
 import { motion } from "framer-motion";
 
 function Services() {
-  const [stock, setStock] = useState(1000); // Updated initial stock
   const [searchTerm, setSearchTerm] = useState("");
   const [milkData, setMilkData] = useState([
     { day: "Mon", milkIn: 300, milkOut: 200 },
@@ -26,6 +25,21 @@ function Services() {
     quantity: 0,
     date: new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }),
   });
+
+  // Calculate the current stock based on transactions
+  const calculateStock = () => {
+    let initialStock = 1000; // Initial stock
+    return transactions.reduce((stock, txn) => {
+      if (txn.type === "Milk In") {
+        return stock + txn.quantity;
+      } else if (txn.type === "Milk Out") {
+        return stock - txn.quantity;
+      }
+      return stock;
+    }, initialStock);
+  };
+
+  const currentStock = calculateStock();
 
   const filteredTransactions = transactions.filter((txn) =>
     txn.receiptNo.toLowerCase().includes(searchTerm.toLowerCase())
@@ -66,13 +80,6 @@ function Services() {
       return data;
     });
     setMilkData(updatedMilkData.slice(-5)); // Keep only the last 5 entries
-
-    // Update stock
-    setStock((prevStock) =>
-      newTransaction.type === "Milk In"
-        ? prevStock + parseInt(newTransaction.quantity)
-        : prevStock - parseInt(newTransaction.quantity)
-    );
 
     // Reset form
     setNewTransaction({
@@ -187,7 +194,7 @@ function Services() {
 
       {/* Stock Display */}
       <motion.div style={styles.section} initial={{ scale: 0.8 }} animate={{ scale: 1 }} transition={{ duration: 0.5 }}>
-        <h2 style={{ fontSize: "20px" }}>Stock Available: {stock} Liters</h2>
+        <h2 style={{ fontSize: "20px" }}>Stock Available: {currentStock} Liters</h2>
       </motion.div>
 
       {/* Milk In & Out Chart */}
