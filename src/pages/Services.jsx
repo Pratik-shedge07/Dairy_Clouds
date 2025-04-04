@@ -73,7 +73,6 @@ function Services() {
     ].slice(-5); // Keep only the last 5 entries
     setTransactions(updatedTransactions);
 
-    // Update milkData
     const day = new Date().toLocaleDateString("en-US", { weekday: "short" });
     const existingDayData = milkData.find((data) => data.day === day);
 
