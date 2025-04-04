@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion"; // For animations
+import { motion } from "framer-motion";
 
 const images = [
   "https://c4.wallpaperflare.com/wallpaper/365/683/587/milk-cheese-sour-cream-dairy-products-wallpaper-preview.jpg",
@@ -13,7 +13,7 @@ const images = [
 function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -87,7 +87,9 @@ function Home() {
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.8 }}
         >
-          Dairy Cloud'z is a powerful platform designed to streamline your dairy business operations. From tracking milk production to managing sales and inventory, we provide the tools you need to succeed.
+          Dairy Cloud'z is a powerful platform designed to streamline your dairy
+          business operations. From tracking milk production to managing sales
+          and inventory, we provide the tools you need to succeed.
         </motion.p>
       </div>
 
@@ -103,10 +105,29 @@ function Home() {
         </motion.h2>
         <div style={styles.featuresGrid}>
           {[
-            { icon: "📊", title: "Track Milk In & Out", description: "Monitor daily milk production and distribution with ease." },
-            { icon: "💰", title: "Monitor Earnings", description: "Track revenue and expenses to maximize profits." },
-            { icon: "👥", title: "Manage Customers", description: "Store customer and supplier details for seamless communication." },
-            { icon: "📦", title: "Inventory Management", description: "Maintain stock levels and track product availability." },
+            {
+              icon: "📊",
+              title: "Track Milk In & Out",
+              description:
+                "Monitor daily milk production and distribution with ease."
+            },
+            {
+              icon: "💰",
+              title: "Monitor Earnings",
+              description: "Track revenue and expenses to maximize profits."
+            },
+            {
+              icon: "👥",
+              title: "Manage Customers",
+              description:
+                "Store customer and supplier details for seamless communication."
+            },
+            {
+              icon: "📦",
+              title: "Inventory Management",
+              description:
+                "Maintain stock levels and track product availability."
+            }
           ].map((feature, index) => (
             <motion.div
               key={index}
@@ -131,10 +152,11 @@ const styles = {
   homeContainer: {
     width: "100%",
     height: "auto",
-    paddingTop: "80px", // Adjust this value to match the height of your navigation bar
+    paddingTop: "80px",
+    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
   },
   heroSection: {
-    height: "calc(100vh - 80px)", // Adjust height to account for the navigation bar
+    height: "calc(100vh - 80px)",
     backgroundSize: "cover",
     backgroundPosition: "center",
     display: "flex",
@@ -143,7 +165,7 @@ const styles = {
     position: "relative",
   },
   heroOverlay: {
-    backgroundColor: "rgba(0, 0, 0, 0.5)", // Dark overlay for better contrast
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
     color: "#fff",
     textAlign: "center",
     padding: "20px",
@@ -156,112 +178,72 @@ const styles = {
     justifyContent: "center",
   },
   heroTitle: {
-    fontSize: "48px",
+    fontSize: "52px",
     fontWeight: "bold",
     marginBottom: "20px",
-    color: "#fff", // White text for contrast
-    "@media (max-width: 768px)": {
-      fontSize: "36px",
-    },
-    "@media (max-width: 480px)": {
-      fontSize: "28px",
-    },
+    color: "#fff",
+    letterSpacing: "1px",
   },
   heroSubtitle: {
-    fontSize: "24px",
+    fontSize: "22px",
     marginBottom: "40px",
-    color: "#f0f0f0", // Light gray for subtlety
-    "@media (max-width: 768px)": {
-      fontSize: "18px",
-    },
-    "@media (max-width: 480px)": {
-      fontSize: "16px",
-    },
+    color: "#e0e0e0",
+    maxWidth: "700px",
+    lineHeight: "1.6",
   },
   heroButtons: {
     display: "flex",
     gap: "20px",
-    "@media (max-width: 480px)": {
-      flexDirection: "column",
-      gap: "10px",
-    },
+    flexWrap: "wrap",
+    justifyContent: "center",
   },
   heroButtonPrimary: {
-    padding: "15px 30px",
-    fontSize: "18px",
-    fontWeight: "bold",
+    padding: "14px 28px",
+    fontSize: "17px",
+    fontWeight: "600",
     border: "none",
-    borderRadius: "5px",
+    borderRadius: "8px",
     backgroundColor: "#FF5722",
     color: "white",
     cursor: "pointer",
+    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
     transition: "0.3s ease",
-    "@media (max-width: 480px)": {
-      padding: "12px 24px",
-      fontSize: "16px",
-    },
   },
   heroButtonSecondary: {
-    padding: "15px 30px",
-    fontSize: "18px",
-    fontWeight: "bold",
+    padding: "14px 28px",
+    fontSize: "17px",
+    fontWeight: "600",
     border: "2px solid #FF5722",
-    borderRadius: "5px",
+    borderRadius: "8px",
     backgroundColor: "#FF5722",
     color: "white",
     cursor: "pointer",
+    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
     transition: "0.3s ease",
-    "@media (max-width: 480px)": {
-      padding: "12px 24px",
-      fontSize: "16px",
-    },
   },
   aboutSection: {
     padding: "80px 20px",
-    backgroundColor: "#f9f9f9", // Light gray background
+    backgroundColor: "#f9f9f9",
     textAlign: "center",
-    "@media (max-width: 768px)": {
-      padding: "60px 20px",
-    },
-    "@media (max-width: 480px)": {
-      padding: "40px 20px",
-    },
   },
   sectionTitle: {
-    fontSize: "36px",
-    fontWeight: "bold",
+    fontSize: "34px",
+    fontWeight: "700",
     marginBottom: "20px",
-    color: "#333", // Dark gray for headings
-    "@media (max-width: 768px)": {
-      fontSize: "28px",
-    },
-    "@media (max-width: 480px)": {
-      fontSize: "24px",
-    },
+    color: "#222",
+    letterSpacing: "0.5px",
   },
   sectionDescription: {
     fontSize: "18px",
     maxWidth: "800px",
     margin: "0 auto",
-    lineHeight: "1.6",
-    color: "#555", // Medium gray for text
-    "@media (max-width: 768px)": {
-      fontSize: "16px",
-    },
-    "@media (max-width: 480px)": {
-      fontSize: "14px",
-    },
+    lineHeight: "1.7",
+    color: "#444",
   },
   featuresSection: {
     padding: "80px 20px",
-    backgroundColor: "#fff", // White background
+    backgroundColor: "#fff",
     textAlign: "center",
-    "@media (max-width: 768px)": {
-      padding: "60px 20px",
-    },
-    "@media (max-width: 480px)": {
-      padding: "40px 20px",
-    },
   },
   featuresGrid: {
     display: "grid",
@@ -270,46 +252,31 @@ const styles = {
     maxWidth: "1200px",
     margin: "0 auto",
     padding: "20px",
-    "@media (max-width: 480px)": {
-      gridTemplateColumns: "1fr",
-      gap: "20px",
-    },
   },
   featureCard: {
-    backgroundColor: "#f9f9f9", // Light gray background for cards
+    backgroundColor: "#f9f9f9",
     padding: "30px",
-    borderRadius: "10px",
+    borderRadius: "12px",
     textAlign: "center",
-    boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
+    boxShadow: "0 6px 20px rgba(0, 0, 0, 0.07)",
     transition: "transform 0.3s ease, box-shadow 0.3s ease",
-    "@media (max-width: 480px)": {
-      padding: "20px",
-    },
   },
   featureIcon: {
-    fontSize: "48px",
+    fontSize: "44px",
     marginBottom: "20px",
-    color: "#FF5722", // Primary color for icons
-    "@media (max-width: 480px)": {
-      fontSize: "36px",
-    },
+    color: "#FF5722",
   },
   featureTitle: {
-    fontSize: "24px",
-    fontWeight: "bold",
-    marginBottom: "15px",
-    color: "#333", // Dark gray for titles
-    "@media (max-width: 480px)": {
-      fontSize: "20px",
-    },
+    fontSize: "22px",
+    fontWeight: "600",
+    marginBottom: "12px",
+    color: "#222",
   },
   featureDescription: {
-    fontSize: "16px",
-    color: "#666", 
+    fontSize: "15px",
+    color: "#555",
     lineHeight: "1.6",
-    "@media (max-width: 480px)": {
-      fontSize: "14px",
-    },
   },
 };
+
 export default Home;
